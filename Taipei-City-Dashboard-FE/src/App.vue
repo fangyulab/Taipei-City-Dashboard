@@ -33,6 +33,7 @@ import ComponentSideBar from "./components/utilities/bars/ComponentSideBar.vue";
 import LogIn from "./components/dialogs/LogIn.vue";
 import ChatBox from "./components/dialogs/ChatBox.vue";
 import ChatBotIcon from "./components/icons/ChatBotIcon.vue";
+import SolarEstimate from "./components/dialogs/SolarEstimate.vue";
 
 const authStore = useAuthStore();
 const dialogStore = useDialogStore();
@@ -261,6 +262,7 @@ onBeforeUnmount(() => {
     </div>
     <InitialWarning />
     <LogIn />
+	<SolarEstimate />
     <div
       v-if="
         ['dashboard', 'mapview'].includes(authStore.currentPath) &&
