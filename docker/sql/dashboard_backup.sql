@@ -19,6 +19,7 @@ SET row_security = off;
 ALTER TABLE ONLY public.tran_ubike_realtime DROP CONSTRAINT tran_ubike_realtime_pkey;
 ALTER TABLE ONLY public.tran_ubike_realtime_new_tpe DROP CONSTRAINT tran_ubike_realtime_new_tpe_pkey;
 ALTER TABLE ONLY public.sunshine_monthly DROP CONSTRAINT sunshine_monthly_pkey;
+ALTER TABLE ONLY public.solar_locations DROP CONSTRAINT solar_locations_pkey;
 ALTER TABLE ONLY public.solar_capacity_yearly DROP CONSTRAINT solar_capacity_yearly_pkey;
 ALTER TABLE ONLY public.solar_capacity_district DROP CONSTRAINT solar_capacity_district_pkey;
 ALTER TABLE ONLY public.population_age_distribution_tpe DROP CONSTRAINT population_age_distribution_tpe_pkey;
@@ -26,6 +27,7 @@ ALTER TABLE ONLY public.population_age_distribution_new_tpe DROP CONSTRAINT popu
 ALTER TABLE ONLY public.energy_generation DROP CONSTRAINT energy_generation_pkey;
 ALTER TABLE ONLY public.employment_age_structure_tpe DROP CONSTRAINT employment_age_structure_tpe_pkey;
 ALTER TABLE ONLY public.employment_age_structure_new_tpe DROP CONSTRAINT employment_age_structure_new_tpe_pkey;
+ALTER TABLE ONLY public.district_solar_psh DROP CONSTRAINT district_solar_psh_pkey;
 ALTER TABLE ONLY public.dependency_ratio_and_aging_index_tpe DROP CONSTRAINT dependency_ratio_and_aging_index_tpe_pkey;
 ALTER TABLE ONLY public.dependency_ratio_and_aging_index_new_tpe DROP CONSTRAINT dependency_ratio_and_aging_index_new_tpe_pkey;
 ALTER TABLE ONLY public.demo_aed_locations DROP CONSTRAINT demo_aed_locations_pkey;
@@ -37,6 +39,7 @@ ALTER TABLE ONLY public.bike_network_tpe DROP CONSTRAINT bike_network_tpe_pkey_1
 ALTER TABLE ONLY public.bike_network_new_tpe DROP CONSTRAINT bike_network_new_tpe_pkey_1;
 ALTER TABLE public.tran_ubike_realtime_new_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
 ALTER TABLE public.sunshine_monthly ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.solar_locations ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.solar_capacity_yearly ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.solar_capacity_district ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.population_age_distribution_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
@@ -44,6 +47,7 @@ ALTER TABLE public.population_age_distribution_new_tpe ALTER COLUMN ogc_fid DROP
 ALTER TABLE public.energy_generation ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.employment_age_structure_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
 ALTER TABLE public.employment_age_structure_new_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
+ALTER TABLE public.district_solar_psh ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.dependency_ratio_and_aging_index_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
 ALTER TABLE public.dependency_ratio_and_aging_index_new_tpe ALTER COLUMN ogc_fid DROP DEFAULT;
 ALTER TABLE public.demo_aed_locations ALTER COLUMN id DROP DEFAULT;
@@ -59,6 +63,8 @@ DROP TABLE public.tran_ubike_realtime;
 DROP SEQUENCE public.tran_ubike_realtime_ogc_fid_seq;
 DROP SEQUENCE public.sunshine_monthly_id_seq;
 DROP TABLE public.sunshine_monthly;
+DROP SEQUENCE public.solar_locations_id_seq;
+DROP TABLE public.solar_locations;
 DROP SEQUENCE public.solar_capacity_yearly_id_seq;
 DROP TABLE public.solar_capacity_yearly;
 DROP SEQUENCE public.solar_capacity_district_id_seq;
@@ -73,6 +79,8 @@ DROP SEQUENCE public.employment_age_structure_tpe_ogc_fid_seq;
 DROP TABLE public.employment_age_structure_tpe;
 DROP SEQUENCE public.employment_age_structure_new_tpe_ogc_fid_seq;
 DROP TABLE public.employment_age_structure_new_tpe;
+DROP SEQUENCE public.district_solar_psh_id_seq;
+DROP TABLE public.district_solar_psh;
 DROP SEQUENCE public.dependency_ratio_and_aging_index_tpe_ogc_fid_seq;
 DROP TABLE public.dependency_ratio_and_aging_index_tpe;
 DROP SEQUENCE public.dependency_ratio_and_aging_index_new_tpe_ogc_fid_seq;
@@ -639,6 +647,39 @@ ALTER SEQUENCE public.dependency_ratio_and_aging_index_tpe_ogc_fid_seq OWNED BY 
 
 
 --
+-- Name: district_solar_psh; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.district_solar_psh (
+    id integer NOT NULL,
+    district character varying(20),
+    lat numeric(10,6),
+    lng numeric(10,6),
+    psh numeric(6,4)
+);
+
+
+--
+-- Name: district_solar_psh_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.district_solar_psh_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: district_solar_psh_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.district_solar_psh_id_seq OWNED BY public.district_solar_psh.id;
+
+
+--
 -- Name: employment_age_structure_new_tpe; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -893,6 +934,43 @@ ALTER SEQUENCE public.solar_capacity_yearly_id_seq OWNED BY public.solar_capacit
 
 
 --
+-- Name: solar_locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.solar_locations (
+    id integer NOT NULL,
+    owner character varying(200),
+    site_name character varying(200),
+    address character varying(300),
+    district character varying(20),
+    device_type character varying(100),
+    capacity_kwp numeric(10,2),
+    lng numeric(10,6),
+    lat numeric(10,6)
+);
+
+
+--
+-- Name: solar_locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.solar_locations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: solar_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.solar_locations_id_seq OWNED BY public.solar_locations.id;
+
+
+--
 -- Name: sunshine_monthly; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1073,6 +1151,13 @@ ALTER TABLE ONLY public.dependency_ratio_and_aging_index_tpe ALTER COLUMN ogc_fi
 
 
 --
+-- Name: district_solar_psh id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_solar_psh ALTER COLUMN id SET DEFAULT nextval('public.district_solar_psh_id_seq'::regclass);
+
+
+--
 -- Name: employment_age_structure_new_tpe ogc_fid; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1119,6 +1204,13 @@ ALTER TABLE ONLY public.solar_capacity_district ALTER COLUMN id SET DEFAULT next
 --
 
 ALTER TABLE ONLY public.solar_capacity_yearly ALTER COLUMN id SET DEFAULT nextval('public.solar_capacity_yearly_id_seq'::regclass);
+
+
+--
+-- Name: solar_locations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.solar_locations ALTER COLUMN id SET DEFAULT nextval('public.solar_locations_id_seq'::regclass);
 
 
 --
@@ -11205,6 +11297,55 @@ COPY public.dependency_ratio_and_aging_index_tpe (ogc_fid, end_of_year, young_po
 
 
 --
+-- Data for Name: district_solar_psh; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.district_solar_psh (id, district, lat, lng, psh) FROM stdin;
+1	北投區	25.132300	121.500200	3.7111
+2	士林區	25.093400	121.524100	3.7111
+3	內湖區	25.083000	121.587000	3.7111
+4	南港區	25.055000	121.606900	3.7111
+5	松山區	25.057500	121.577100	3.7111
+6	信義區	25.032400	121.564500	3.7111
+7	中山區	25.069700	121.532600	3.7111
+8	大同區	25.063000	121.513100	3.7111
+9	中正區	25.032000	121.519800	3.7111
+10	萬華區	25.034000	121.499700	3.7111
+11	大安區	25.026400	121.543100	3.7111
+12	文山區	24.998800	121.567700	3.8107
+13	新莊區	25.035500	121.449900	3.7111
+14	淡水區	25.170000	121.443200	3.7111
+15	汐止區	25.065000	121.657300	3.7111
+16	板橋區	25.012700	121.467400	3.7111
+17	三重區	25.061700	121.487500	3.7111
+18	樹林區	24.989600	121.417800	3.8107
+19	土城區	24.973900	121.445000	3.8107
+20	蘆洲區	25.085300	121.473800	3.7111
+21	中和區	24.998600	121.498600	3.8107
+22	永和區	25.014200	121.516400	3.7111
+23	新店區	24.957100	121.537500	3.8107
+24	鶯歌區	24.954100	121.343000	3.8107
+25	三峽區	24.934900	121.371200	3.8107
+26	瑞芳區	25.107600	121.802400	3.7111
+27	五股區	25.078000	121.436700	3.7111
+28	泰山區	25.054800	121.431300	3.7111
+29	林口區	25.077900	121.387800	3.7111
+30	深坑區	24.977900	121.613800	3.8107
+31	石碇區	24.967700	121.659100	3.8107
+32	坪林區	24.933300	121.712100	3.8107
+33	三芝區	25.257200	121.501800	3.7111
+34	石門區	25.293800	121.569000	3.7111
+35	八里區	25.152000	121.410300	3.7111
+36	平溪區	25.026600	121.742500	3.7111
+37	雙溪區	25.029600	121.867100	3.7111
+38	貢寮區	25.025900	121.903700	3.7111
+39	金山區	25.222200	121.636700	3.7111
+40	萬里區	25.179600	121.685100	3.7111
+41	烏來區	24.865900	121.550300	3.8107
+\.
+
+
+--
 -- Data for Name: employment_age_structure_new_tpe; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -13349,6 +13490,92 @@ COPY public.solar_capacity_yearly (id, year, taipei_kw, newtaipei_kw, total_kw) 
 11	2023	75080	159402	234482
 12	2024	80242	184135	264377
 13	2025	83445	198720	282165
+\.
+
+
+--
+-- Data for Name: solar_locations; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.solar_locations (id, owner, site_name, address, district, device_type, capacity_kwp, lng, lat) FROM stdin;
+1	臺北市市政大樓公共事務管理中心	臺北市市政大樓北區屋頂	臺北市信義區市府路1號	信義區	一般照明	5.10	121.560650	25.034115
+2	臺北市政府環境保護局	臺北市內湖區行忠路178巷1號內湖再生傢俱展示場 3樓	臺北市內湖區行忠路178巷1號內湖再生傢俱展示場 3樓	內湖區	一般照明	10.84	121.584232	25.081200
+3	臺北市政府水利工程處	關渡河濱公園	臺北市北投區關渡地區	北投區	LED景觀燈	0.30	121.501967	25.134192
+4	臺北市政府水利工程處	臺北市雨水下水道內(70處，每處35W)		中正區	雨水下水道水位監測設備	2.45	121.509369	25.045537
+5	臺北市政府工務局	二二八和平公園	臺北市中正區凱達格蘭大道3號	中正區	太陽能路燈	0.07	121.508798	25.041775
+6	臺北市停車管理處	停車資訊導引標誌(2 片)		信義區	nan	0.22	121.565454	25.030749
+7	臺北市停車管理處	停車資訊導引標誌(2 片)		信義區	nan	0.22	121.562388	25.029212
+8	臺北市體育處	7F射箭場外平臺	臺北市信義區市府路1號	信義區	一般照明	5.20	121.565849	25.034199
+9	臺北市立圖書館	北投分館頂樓	臺北市北投區光明路251號	北投區	一般照明	16.32	121.501093	25.130064
+10	臺北市立圖書館	石牌分館南側外牆立面	臺北市北投區明德路208巷5號	北投區	搭配提供圖書館全棟之用電需求	8.64	121.495265	25.134775
+11	臺北小巨蛋	五樓頂樓 LED燈	臺北市松山區南京東路4段2號	松山區	一般照明	5.10	121.579081	25.059947
+12	臺北翡翠水庫管理局	臺北翡翠水庫管理局操作大樓屋頂	新北市石碇區永定里乾溝路二段1號	石碇區	翡翠雨量水位站	0.07	121.528455	25.046522
+13	臺北翡翠水庫管理局	臺北縣坪林鄉水聳淒坑水聳淒坑小段1-2等地號	臺北縣坪林鄉水聳淒坑水聳淒坑小段1-2等地號	坪林鄉	坪林雨量水位站	0.07	121.530266	25.051458
+14	臺北翡翠水庫管理局	臺北縣石碇鄉小格頭段小金瓜寮十三股小段30 之2A地號	臺北縣石碇鄉小格頭段小金瓜寮十三股小段30 之2A地號	石碇鄉	十三股雨量站	0.07	121.527867	25.044542
+15	臺北翡翠水庫管理局	臺北縣石碇鄉乾溝段石碇子小段69甲&69乙地號	臺北縣石碇鄉乾溝段石碇子小段69甲&69乙地號	石碇鄉	九芎根雨量站	0.07	121.532937	25.050580
+16	臺北翡翠水庫管理局	臺北縣坪林鄉九芎林段倒吊子小段13之3地號	臺北縣坪林鄉九芎林段倒吊子小段13之3地號	坪林鄉	碧湖雨量站	0.07	121.534197	25.050257
+17	臺北翡翠水庫管理局	臺北縣雙溪鄉太平段後寮子小段308之2A地號	臺北縣雙溪鄉太平段後寮子小段308之2A地號	雙溪鄉	太平雨量站	0.07	121.536631	25.048090
+18	臺北翡翠水庫管理局	臺北縣坪林鄉頄逮頄堀段頄堀小段8地號	臺北縣坪林鄉頄逮頄堀段頄堀小段8地號	坪林鄉	逮頄溪水位站	0.07	121.532420	25.046828
+19	臺北翡翠水庫管理局	臺北翡翠水庫管理局辦公區內	新北市石碇區永定里乾溝路二段1號	石碇區	水文測報綜合氣象站	0.07	121.533085	25.050435
+20	臺北翡翠水庫管理局	臺北縣坪林鄉水柳腳187之5號後面	臺北縣坪林鄉水柳腳187之5號後面	坪林鄉	坪林汙水廠水位站	0.07	121.532674	25.050694
+21	臺北翡翠水庫管理局	臺北縣新店市直潭山三角點旁	臺北縣新店市直潭山三角點旁	新店市	水文測報無線電中繼站	0.07	121.527358	25.049437
+22	臺北翡翠水庫管理局	臺北縣新店市直潭山三角點旁	臺北縣新店市直潭山三角點旁	新店市	無線電中繼站	0.60	121.529794	25.045623
+23	臺北翡翠水庫管理局	臺北縣石碇鄉火燒樟大段火燒樟小段90號	臺北縣石碇鄉火燒樟大段火燒樟小段90號	石碇鄉	無線電第2號公共分臺	0.04	121.529228	25.044438
+24	臺北翡翠水庫管理局	翡翠水庫附近車閂寮	新北市石碇區永定里	石碇區	無線電第10 號公共分臺	0.04	121.529680	25.044608
+25	臺北翡翠水庫管理局	翡翠水庫2號隧道附近	新北市石碇區永定里	石碇區	無線電R10公共分臺	0.04	121.530548	25.048885
+26	臺北翡翠水庫管理局	翡翠水庫2號橋附近	新北市石碇區永定里	石碇區	簡易道路照明	0.05	121.528995	25.046761
+27	臺北市立動物園	節能屋	臺北市文山區新光路二段30號	文山區	教育展示	1.70	121.578467	24.997136
+28	臺北市立動物園	路燈照明	臺北市文山區新光路二段30號	文山區	教育展示	0.11	121.575191	25.000184
+29	臺北自來水事業處	自來水博物館園區親子戲水池旁	臺北市中正區思源街1號	中正區	一般照明及景觀用噴泉(馬達)	6.48	121.515791	25.039769
+30	臺北自來水事業處	公館淨水場淨水池頂及管理廊屋頂	臺北市中正區思源街1號	中正區	場區部分電力及一般照明	258.75	121.512295	25.039707
+31	臺北大眾捷運股份有限公司	劍潭站	臺北市士林區中山北路五段510號	士林區	捷運標誌燈	2.73	121.525500	25.097316
+32	臺北大眾捷運股份有限公司	士林站	臺北市士林區基河路23號	士林區	捷運標誌燈	0.00	121.525946	25.093856
+33	臺北大眾捷運股份有限公司	公館站	臺北市中正區羅斯福路四段1號	中正區	捷運標誌燈	0.00	121.516260	25.045143
+34	臺北大眾捷運股份有限公司	忠孝新生站	臺北市大安區忠孝東路三段1號	大安區	捷運標誌燈	0.00	121.538521	25.023832
+35	臺北大眾捷運股份有限公司	忠孝復興站	臺北市大安區忠孝東路四段1號	大安區	捷運標誌燈	0.00	121.540877	25.024524
+36	臺北大眾捷運股份有限公司	國父紀念館站	臺北市信義區忠孝東路五段71號	信義區	捷運標誌燈	0.00	121.569829	25.030688
+37	臺北市立中山女子高級中學	司令臺		中山區	一般照明	0.19	121.521847	25.066111
+38	臺北市立北投區泉源國民小學	B棟大樓頂樓		北投區	一般照明	0.44	121.499156	25.133544
+39	臺北市立三民國民小學	思恩樓2樓		南港區	電子看板	1.50	121.606489	25.058316
+40	臺北市政府公務人員訓練處	B棟頂樓		北投區	一般照明	0.00	121.497666	25.130419
+41	士東市場	頂樓平臺		士林區	併聯太陽能系統	60.20	121.521727	25.093891
+42	溪山國民小學	北棟大樓頂		士林區	照明或回饋臺電	2.10	121.528078	25.094077
+43	內湖垃圾焚化爐	溫水游泳池屋頂		內湖區	一般照明	0.16	121.584193	25.082195
+44	北投垃圾焚化爐	行政大樓前門兩側		北投區	庭園燈	0.00	121.500295	25.136280
+45	大橋國小	車棚頂部		大同區	路前燈	0.01	121.508871	25.059727
+46	萬芳高中	行政大樓頂樓		文山區	夜間照明	1.40	121.575374	24.995877
+47	松山高級工農職業學校	成功樓5樓頂		松山區	成功樓科技廣場夜間景觀照明	2.08	121.576322	25.059837
+48	地政處土地開發總隊	士林官邸北側附近地區專案住宅景觀工程(士林區福林段2小段155地號等8筆)(加總)	臺北市士林區福林路60號附近	士林區	照明	4.94	121.522916	25.089908
+49	蘭雅國中	生態池		士林區	抽水設備	0.02	121.524391	25.097369
+50	臺北市立啟明學校	1.連通走廊二座2.學生宿舍二一座樓陽臺		中山區	操場庭園燈	0.24	121.527308	25.066869
+51	新湖國小	信義樓頂樓		內湖區	操場夜間照明	2.04	121.589207	25.079092
+52	新湖國小	警衛室屋頂		內湖區	夜間照明燈	0.09	121.587370	25.084454
+53	新湖國小	二樓童軍教室外		內湖區	夜間照明燈	0.09	121.588410	25.081135
+54	新湖國小	西側門跑道旁		內湖區	夜間照明燈	0.09	121.586348	25.079892
+55	新湖國小	警衛室屋頂		內湖區	生態池噴泉及循環泵浦	0.13	121.591538	25.082630
+56	總統府	力行樓頂樓	臺北市中正區重慶南路一段122號	中正區	一般照明	10.50	121.511134	25.045407
+57	立法院	行政舊樓頂樓	臺北市中正區中山南路一號	中正區	一般照明	10.03	121.510287	25.042405
+58	經濟部	D棟屋頂	臺北市中正區福州街15號	中正區	教育展示	20.00	121.517205	25.045701
+59	行政院環境保護署	實踐大樓頂樓	臺北市中正區中華路一段83號	中正區	一般照明	5.00	121.514889	25.040788
+60	臺灣電力公司	檢修大樓	臺北市中正區羅斯福路三段242號	中正區	市電並聯型	20.16	121.510028	25.043272
+61	中華電信股份有限公司	4樓頂		中山區	資通訊設備	10.00	121.524094	25.065200
+62	中華電信股份有限公司	10樓頂		中山區	辦公室用電	15.75	121.524004	25.065329
+63	中華電信股份有限公司	13樓頂		中山區	辦公室用電	4.32	121.521942	25.059105
+64	國立臺灣科技大學	國際大樓頂樓	臺北市大安區基隆路四段43號	大安區	一般照明	36.00	121.547491	25.022156
+65	國立臺北科技大學	建築系設計館外牆	臺北市大安區忠孝東路三段1號	大安區	一般照明	5.44	121.546517	25.029030
+66	中華技術學院	體育室	臺北市內湖區環山路一段19巷3號	內湖區	市電並聯	5.10	121.582579	25.081460
+67	臺北市私立復興實驗高級中學	鐘塔頂樓	臺北市中山區復興北路363號	中山區	一般照明	1.80	121.528169	25.066124
+68	伊頓飛瑞慕品股份有限公司	頂樓		信義區	大樓供電	33.92	121.565260	25.029685
+69	伊頓飛瑞慕品股份有限公司	機車停車棚(1F)		信義區	大樓供電	9.60	121.568006	25.029554
+70	明東實業股份有限公司	福安紀念館南側立面		中正區	臺電並聯	19.80	121.509784	25.044527
+71	臺達電子工業股份有限公司	頂樓		內湖區	大樓供電	5.12	121.587498	25.082802
+72	立信開發股份有限公司	屋頂		信義區	辦公用電	9.99	121.569124	25.031120
+73	阿曼開發股份有限公司	12樓屋頂		信義區	nan	4.32	121.562518	25.032385
+74	順達開發有限公司	12樓屋頂		信義區	臺電並聯	4.68	121.567699	25.033314
+75	華固建設股份有限公司	i-PARK案 A.B棟頂樓		內湖區	一般照明	15.30	121.585117	25.080609
+76	廣宇建設實業股份有限公司	7樓屋頂R2		信義區	nan	6.40	121.566899	25.036961
+77	三多立建設開發有限公司	屋突3層		大安區	公共照明	1.40	121.543376	25.025505
+78	李美華	樓頂		nan	臺電並聯	3.01	121.529147	25.044768
 \.
 
 
@@ -16423,6 +16650,13 @@ SELECT pg_catalog.setval('public.dependency_ratio_and_aging_index_tpe_ogc_fid_se
 
 
 --
+-- Name: district_solar_psh_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.district_solar_psh_id_seq', 41, true);
+
+
+--
 -- Name: employment_age_structure_new_tpe_ogc_fid_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -16469,6 +16703,13 @@ SELECT pg_catalog.setval('public.solar_capacity_district_id_seq', 40, true);
 --
 
 SELECT pg_catalog.setval('public.solar_capacity_yearly_id_seq', 13, true);
+
+
+--
+-- Name: solar_locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.solar_locations_id_seq', 78, true);
 
 
 --
@@ -16572,6 +16813,14 @@ ALTER TABLE ONLY public.dependency_ratio_and_aging_index_tpe
 
 
 --
+-- Name: district_solar_psh district_solar_psh_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_solar_psh
+    ADD CONSTRAINT district_solar_psh_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: employment_age_structure_new_tpe employment_age_structure_new_tpe_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16625,6 +16874,14 @@ ALTER TABLE ONLY public.solar_capacity_district
 
 ALTER TABLE ONLY public.solar_capacity_yearly
     ADD CONSTRAINT solar_capacity_yearly_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: solar_locations solar_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.solar_locations
+    ADD CONSTRAINT solar_locations_pkey PRIMARY KEY (id);
 
 
 --

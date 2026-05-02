@@ -818,6 +818,8 @@ carbon_tree_estimate	{#6abf69,#4a9e49}	{CarbonTreeChart}	棵
 energy_generation	{#3498db,#f39c12,#2ecc71}	{ColumnChart}	萬度
 carbon_tree_yearly	{#3498db,#f39c12,#2ecc71}	{ColumnChart}	棵
 solar_capacity_yearly	{#F5A524,#5B9BD5}	{SolarYearlyChart}	瓩
+district_solar_psh	{#F57C00}	{MapLegend}	kWh/m²/day
+solar_locations	{#53974e,#3f6d3c,#67b262,#8fd18e,#F5A524,#5B9BD5,#E55C5C}	{DonutChart,BarChart}	kWp
 \.
 
 
@@ -831,6 +833,8 @@ COPY public.component_maps (id, index, title, type, source, size, icon, paint, p
 100	bike_network_tpe	自行車路網	line	geojson	\N	\N	{"line-color":["match",["get","direction"],"雙向","#097138","單向","#007BFF","#808080"]}	[\r\n  {"key": "data_time", "name": "數據時間"},\r\n  {"key": "route_name", "name": "路線名稱"},\r\n  {"key": "city_code", "name": "城市代碼"},\r\n  {"key": "city", "name": "城市"},\r\n  {"key": "road_section_start", "name": "起點路段"},\r\n  {"key": "road_section_end", "name": "終點路段"},\r\n  {"key": "direction", "name": "方向"},\r\n  {"key": "cycling_length", "name": "自行車道長度"},\r\n  {"key": "finished_time", "name": "完工時間"},\r\n  {"key": "update_time", "name": "更新時間"}\r\n]
 101	bike_network_metrotaipei	自行車路網	line	geojson	\N	\N	{"line-color":["match",["get","direction"],"雙向","#097138","單向","#007BFF","#808080"]}	[\r\n  {"key": "data_time", "name": "數據時間"},\r\n  {"key": "route_name", "name": "路線名稱"},\r\n  {"key": "city_code", "name": "城市代碼"},\r\n  {"key": "city", "name": "城市"},\r\n  {"key": "road_section_start", "name": "起點路段"},\r\n  {"key": "road_section_end", "name": "終點路段"},\r\n  {"key": "direction", "name": "方向"},\r\n  {"key": "cycling_length", "name": "自行車道長度"},\r\n  {"key": "finished_time", "name": "完工時間"},\r\n  {"key": "update_time", "name": "更新時間"}\r\n]
 3	solar_capacity_district	太陽光電設置容量分布	fill	geojson	\N	\N	{"fill-color": ["interpolate", ["linear"], ["get", "capacity_kwp"], 0, "#FFF9C4", 10, "#FFB74D", 50, "#F57C00", 100, "#E65100", 400, "#BF360C"], "fill-opacity": 0.7, "fill-outline-color": "#FFFFFF"}	[{"key":"name","name":"行政區"},{"key":"capacity_kwp","name":"設置容量(kWp)"},{"key":"city","name":"縣市"}]
+4	district_solar_psh	行政區年平均日照量	fill	geojson	\N	\N	{"fill-color":["interpolate",["linear"],["get","psh"],3.7,"#FFF9C4",3.8107,"#F57C00"],"fill-opacity":0.7,"fill-outline-color":"#ffffff"}	[{"key":"TNAME","name":"行政區"},{"key":"psh","name":"年平均日照(kWh/m²/day)"}]
+5	solar_locations	太陽能設置場所	circle	geojson	\N	\N	{"circle-radius":["interpolate",["linear"],["get","capacity_kwp"],0,3,5,6,50,10,258,20],"circle-color":"#F7B731","circle-opacity":0.85,"circle-stroke-color":"#ffffff","circle-stroke-width":1}	[{"key":"site_name","name":"設置場所"},{"key":"district","name":"行政區"},{"key":"capacity_kwp","name":"裝置容量(kWp)"},{"key":"device_type","name":"使用裝置"},{"key":"owner","name":"管理機關"}]
 \.
 
 
@@ -853,6 +857,8 @@ COPY public.components (id, index, name, history_config) FROM stdin;
 2	energy_generation	再生能源躉購電量	\N
 14	carbon_tree_yearly	減碳數轉換樹量	\N
 11	solar_capacity_yearly	太陽能裝置容量年度趨勢	\N
+15	district_solar_psh	行政區年平均日照量	\N
+16	solar_locations	太陽能設置場所	\N
 \.
 
 
@@ -896,8 +902,8 @@ COPY public.dashboards (id, index, name, components, icon, updated_at, created_a
 1	09a25cd9cb7d	收藏組件	\N	favorite	2025-03-14 07:34:22.247753+00	2025-03-14 07:34:22.247753+00
 2	3245d9eace5f	我的新儀表板	{215,218,216,213,212,214,60,146}	star	2025-03-14 14:55:11.732116+00	2025-03-14 14:55:11.732116+00
 360	53151f82d473	收藏組件	\N	favorite	2026-05-02 04:52:45.384891+00	2026-05-02 04:52:45.384891+00
-368	251c7c83aee5	綠能發展	{13,12,14,11,3,2}	wb_sunny	2026-05-02 12:38:19.162198+00	2026-05-02 11:07:23.137595+00
-371	green_energy_tpe	綠能發展	{13,12,2,11,3,14}	solar_power	2026-05-02 15:25:53.980547+00	2026-05-02 14:20:09.931906+00
+368	251c7c83aee5	綠能發展	{13,12,2,11,3,14,16}	wb_sunny	2026-05-02 12:38:19.162198+00	2026-05-02 11:07:23.137595+00
+371	green_energy_tpe	綠能發展	{13,12,2,11,3,14,16}	solar_power	2026-05-02 18:45:51.29329+00	2026-05-02 14:20:09.931906+00
 \.
 
 
@@ -957,12 +963,15 @@ solar_capacity_district	\N	{3}	\N	static	\N	1	year	產業發展局/經濟發展�
 carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	114年太陽能節碳等效種樹數	顯示台北市太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 11:34:23.213898+00	2026-05-02 11:34:23.213898+00	two_d	SELECT '等效種樹數' AS x_axis, SUM(total_trees)::int AS data FROM carbon_tree_yearly WHERE year = 2025 AND city = '台北市' UNION ALL SELECT '減碳量' AS x_axis, (SUM(wind + solar + other) / 1000)::int AS data FROM carbon_tree WHERE year = 113 AND city = '台北市'	\N	taipei
 carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	雙北太陽能節碳等效種樹數	顯示雙北太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 14:23:25.133394+00	2026-05-02 14:23:25.133394+00	two_d	SELECT '等效種樹數' AS x_axis, SUM(total_trees)::int AS data FROM carbon_tree_yearly WHERE year = 2025 UNION ALL SELECT '減碳量' AS x_axis, (SUM(wind + solar + other) / 1000)::int AS data FROM carbon_tree WHERE year = 113	\N	metrotaipei
 solar_capacity_yearly	\N	\N	\N	static	\N	\N		台電	雙北太陽能裝置容量年度趨勢	顯示台北市與新北市歷年太陽光電裝置容量（瓩）變化趨勢，資料涵蓋民國102年至114年。	評估雙北太陽光電發展現況與政策成效	\N	{doit}	2026-05-02 10:50:28.681101+00	2026-05-02 10:50:28.681101+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['台北市', '新北市']) as y_axis, unnest(ARRAY[taipei_kw, newtaipei_kw]) as data from solar_capacity_yearly) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
+district_solar_psh	\N	{4}	\N	static	\N	0	\N	臺北市政府	雙北各行政區年平均日照量（PSH），以顏色深淺顯示日照強度。	本組件以面圖顯示雙北41個行政區的年平均日照量（Peak Sun Hours，kWh/m²/day）。日照量越高代表太陽能發電潛力越大，可作為推廣太陽能板設置的參考依據。	可觀察雙北各行政區的太陽能發電潛力差異，輔助政策規劃與民眾評估安裝太陽能板的效益。	\N	{doit}	2026-05-02 18:14:41.368468+00	2026-05-02 18:14:41.368468+00	map_legend	SELECT district AS x_axis, psh::numeric AS data FROM public.district_solar_psh ORDER BY psh DESC	\N	metrotaipei
 energy_generation	\N	\N	\N	static	\N	1	year	經濟發展局	雙北再生能源躉購電量統計	顯示雙北歷年再生能源（風力、太陽光電、水力）發電度數變化趨勢	評估再生能源政策成效與發展趨勢	\N	{doit}	2026-05-02 08:52:01.705065+00	2026-05-02 08:52:01.705065+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['風力', '太陽光電', '其他(含水力)']) as y_axis, unnest(ARRAY[wind_kwh/10000, solar_kwh/10000, hydro_kwh/10000]) as data from energy_generation) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
 carbon_tree_yearly	\N	\N	\N	static	\N	\N		台電	台北市再生能源減碳等效種樹數	顯示台北市歷年再生能源減碳量轉換為等效種樹數量	評估再生能源減碳成效	\N	{doit}	2026-05-02 12:34:02.455712+00	2026-05-02 12:34:02.455712+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['太陽光電', '風力', '其他(含水力)']) as y_axis, unnest(ARRAY[solar_trees, wind_trees, hydro_trees]) as data from carbon_tree_yearly where city = '台北市') d group by x_axis, y_axis order by x_axis	\N	taipei
 sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	台北市各站月平均日照時數	顯示台北市氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:18.928842+00	2026-05-02 10:56:18.928842+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['01月','02月','03月','04月','05月','06月','07月','08月','09月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly where city = '台北市') d group by x_axis, y_axis order by x_axis, y_axis	\N	taipei
 carbon_tree_yearly	\N	\N	\N	static	\N	\N		台電	雙北再生能源減碳等效種樹數	顯示雙北歷年再生能源減碳量轉換為等效種樹數量	評估再生能源減碳成效	\N	{doit}	2026-05-02 12:34:02.756734+00	2026-05-02 12:34:02.756734+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['太陽光電', '風力', '其他(含水力)']) as y_axis, unnest(ARRAY[solar_trees, wind_trees, hydro_trees]) as data from carbon_tree_yearly) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
 sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	雙北各站月平均日照時數	顯示雙北氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:19.655494+00	2026-05-02 10:56:19.655494+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['01月','02月','03月','04月','05月','06月','07月','08月','09月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly) d group by x_axis, y_axis order by x_axis, y_axis	\N	metrotaipei
 solar_capacity_yearly	\N	\N	\N	static	\N	\N		台電	雙北太陽能裝置容量年度趨勢	顯示台北市與新北市歷年太陽光電裝置容量（瓩）變化趨勢，資料涵蓋民國102年至114年。	評估雙北太陽光電發展現況與政策成效	\N	{doit}	2026-05-02 10:50:28.122564+00	2026-05-02 10:50:28.122564+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, '台北市' as y_axis, taipei_kw as data from solar_capacity_yearly) d group by x_axis, y_axis order by x_axis	\N	taipei
+solar_locations	\N	{5}	\N	static	\N	0	\N	臺北市政府	臺北市公有建物太陽能設置場所，點位大小代表裝置容量。	顯示臺北市政府公有建物太陽能板設置位置，點位大小代表裝置容量（kWp）。涵蓋市政大樓、學校、水利設施等78處場所。	可觀察太陽能設置的空間分布與各場所裝置規模，輔助能源政策評估。	\N	{doit}	2026-05-02 18:15:44.833198+00	2026-05-02 18:15:44.833198+00	two_d	SELECT\n    CASE\n        WHEN owner LIKE '%捷運%' THEN '捷運站'\n        WHEN owner LIKE '%水庫%' OR owner LIKE '%水利%' OR owner LIKE '%自來水%' THEN '水利設施'\n        WHEN owner LIKE '%動物園%' OR site_name LIKE '%公園%' THEN '公園/動物園'\n        WHEN owner LIKE '%學%' OR owner LIKE '%學院%' OR owner LIKE '%大學%' THEN '學校'\n        WHEN owner LIKE '%市政府%' OR owner LIKE '%市政大樓%' OR owner LIKE '%總統%' OR owner LIKE '%立法%' OR owner LIKE '%行政院%' OR owner LIKE '%經濟部%' THEN '政府機關'\n        WHEN owner LIKE '%公司%' OR owner LIKE '%股份%' OR owner LIKE '%有限%' THEN '商業建物'\n        ELSE '其他'\n    END AS x_axis,\n    ROUND(SUM(capacity_kwp))::int AS data\nFROM public.solar_locations\nGROUP BY x_axis\nORDER BY data DESC	\N	taipei
+district_solar_psh	\N	{4}	\N	static	\N	0	\N	臺北市政府	雙北各行政區年平均日照量（PSH），以顏色深淺顯示日照強度。	本組件以面圖顯示雙北41個行政區的年平均日照量（Peak Sun Hours，kWh/m²/day）。日照量越高代表太陽能發電潛力越大，可作為推廣太陽能板設置的參考依據。	可觀察雙北各行政區的太陽能發電潛力差異，輔助政策規劃與民眾評估安裝太陽能板的效益。	\N	{doit}	2026-05-02 18:39:15.73105+00	2026-05-02 18:39:15.73105+00	map_legend	SELECT district AS x_axis, psh::numeric AS data FROM public.district_solar_psh ORDER BY psh DESC	\N	taipei
 \.
 
 
@@ -1066,14 +1075,14 @@ SELECT pg_catalog.setval('public.chat_logs_id_seq', 2, true);
 -- Name: component_maps_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.component_maps_id_seq', 3, true);
+SELECT pg_catalog.setval('public.component_maps_id_seq', 5, true);
 
 
 --
 -- Name: components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.components_id_seq', 14, true);
+SELECT pg_catalog.setval('public.components_id_seq', 16, true);
 
 
 --
