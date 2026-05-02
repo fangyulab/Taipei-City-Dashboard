@@ -47,6 +47,14 @@ type AIChatInput struct {
 	ToolChoice interface{} `json:"tool_choice,omitempty"`
 }
 
+type AIRecommendInput struct {
+	SessionID      string `json:"session"`
+	Topic          string `json:"topic" binding:"required"`
+	City           string `json:"city" binding:"omitempty,oneof=taipei metrotaipei"`
+	ComponentLimit int    `json:"component_limit" binding:"omitempty,gte=1,lte=500"`
+	BCount         int    `json:"b_count" binding:"omitempty,gte=1,lte=8"`
+}
+
 // ChatWithTWCC is the controller for POST /api/v1/ai/chat/twai
 func ChatWithTWCC(c *gin.Context) {
 	var input AIChatInput
@@ -137,6 +145,51 @@ func ChatWithTWCC(c *gin.Context) {
 			"model":       logEntry.Model,
 			"provider":    logEntry.Provider,
 		},
+	})
+}
+
+// RecommendComponents is the controller for POST /api/v1/ai/recommend
+func RecommendComponents(c *gin.Context) {
+	var input AIRecommendInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": "error",
+			"error_code": "INVALID_REQUEST",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	sessionID := input.SessionID
+	if sessionID == "" {
+		sessionID = "session_" + util.GenerateRandomString(10)
+	}
+	sessionID = html.EscapeString(sessionID)
+
+	_, accountID, _, _, _ := util.GetUserInfoFromContext(c)
+	req := ai.RecommendRequest{
+		SessionID:      sessionID,
+		Topic:          input.Topic,
+		City:           input.City,
+		ComponentLimit: input.ComponentLimit,
+		BCount:         input.BCount,
+	}
+
+	result, raw, err := ai.RecommendComponents(c.Request.Context(), fmt.Sprintf("%d", accountID), c.ClientIP(), req)
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{
+			"status": "error",
+			"error_code": "AI_RECOMMEND_ERROR",
+			"message": err.Error(),
+			"raw": raw,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   result,
+		"session": sessionID,
 	})
 }
 

@@ -41,60 +41,41 @@ export const useChatStore = defineStore('chat', () => {
 
     	chatData.value.push({ id: chatData.value.length + 1, isDefault: false, ...newChatData });
 
-		recommendComponents.value = [];
-		let topK = null;
-
 		try {
-			const response = await http.post(
-  				"/vector/component",
-  				new URLSearchParams({
-    				query: newChatData.content,
-    				limit: 10,
-    				score: 0.8,
-  				}),
-  				{
-    				headers: {
-      					"Content-Type": "application/x-www-form-urlencoded",
-    				},
-  				}
-			);
-			if (response.data?.data?.length > 0) {
-				recommendComponents.value = response.data.data;
+			const response = await http.post("/ai/recommend", {
+				topic: newChatData.content,
+				b_count: 4,
+				component_limit: 200,
+			});
+
+			const recommendation = response.data?.data;
+			if (recommendation?.a_component && recommendation?.b_components?.length > 0) {
+				const combined = [recommendation.a_component, ...recommendation.b_components]
+					.filter((item) => item?.id);
+
+				recommendComponents.value = combined;
+
+				chatData.value.push({
+					id: chatData.value.length + 1,
+					role: 'bot',
+					isDefault: false,
+					button: [{ id: 1, text: '建立儀表板' }],
+					content: `您好 😊 \n 以下是根據您的問題，整理出的推薦分析結果：\n`,
+					recommendation,
+					relations: combined,
+				});
+				chatData.value.push({
+					id: chatData.value.length + 1,
+					role: 'bot',
+					isDefault: false,
+					content: `若您有任何新的查詢或想深入探索的內容，都可以隨時在對話框告訴我～\n 我很樂意再協助您 💬✨`,
+				});
+			} else {
+				chatData.value.push({ id: chatData.value.length + 1, role: 'bot', isDefault: false, content: `很抱歉，您提供的描述沒有相似組件，請繼續提問 ! ` });
 			}
-
-			// 去除重複項目存到 result
-			const result = Array.from(
-  				recommendComponents.value.reduce((map, item) => {
-    				const key = item.index
-    				const exist = map.get(key)
-
-    				// 如果還沒放過，直接放
-    				if (!exist) {
-      					map.set(key, item)
-      					return map
-    				}
-
-    				// 如果已存在，但現在的是 metrotaipei，就覆蓋
-    				if (item.city === 'metrotaipei') {
-      					map.set(key, item)
-    				}
-
-    				return map
-  				}, new Map()).values()
-			)
-			// 把 result 蓋回去 recommendComponents
-			recommendComponents.value = result
-
-		} catch (error) { 
-			console.error("VectorAnalysisError :", error);
-		}
-
-		if (recommendComponents.value && recommendComponents.value?.length > 0) {
-			topK = [...recommendComponents.value].sort((a, b) => b.score - a.score);
-			chatData.value.push({ id: chatData.value.length + 1, role: 'bot', isDefault: false, button: [{ id:1, text:'建立儀表板' }], content: `您好 😊 \n 以下是根據您的問題，自動為您推薦的「組件清單」。您可以將這些組件整批加入「個人儀表板」，方便日後快速查看與使用。\n`, relations: topK });
-			chatData.value.push({ id: chatData.value.length + 1, role: 'bot', isDefault: false, content: `若您有任何新的查詢或想深入探索的內容，都可以隨時在對話框告訴我～\n 我很樂意再協助您 💬✨` });
-		} else {
-			chatData.value.push({ id: chatData.value.length + 1, role: 'bot', isDefault: false, content: `很抱歉，您提供的描述沒有相似組件，請繼續提問 ! ` });
+		} catch (error) {
+			console.error("AIRecommendError :", error);
+			chatData.value.push({ id: chatData.value.length + 1, role: 'bot', isDefault: false, content: `推薦分析暫時無法取得，請稍後再試。` });
 		}
 
 		// 分析結束後紀錄問答log

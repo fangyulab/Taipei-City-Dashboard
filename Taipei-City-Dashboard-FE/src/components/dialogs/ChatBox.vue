@@ -138,6 +138,55 @@ watch(
             >
               <p>{{ chat.content }}</p>
             </div>
+						<div
+							v-if="chat.recommendation"
+							class="recommendation-area"
+						>
+							<div class="recommendation-block">
+								<h4>分析主題</h4>
+								<p>{{ chat.recommendation.theme }}</p>
+							</div>
+							<div class="recommendation-block">
+								<h4>A 組件</h4>
+								<p>
+									{{ chat.recommendation.a_component?.name }}
+									<span class="recommendation-meta">
+										({{ chat.recommendation.a_component?.city }})
+									</span>
+								</p>
+								<p class="recommendation-reason">
+									{{ chat.recommendation.a_component?.reason }}
+								</p>
+							</div>
+							<div class="recommendation-block">
+								<h4>B 組件</h4>
+								<ul>
+									<li
+										v-for="item in chat.recommendation.b_components"
+										:key="`${item.index}-${item.city}`"
+									>
+										<span>
+											{{ item.name }}
+											<span class="recommendation-meta">({{ item.city }})</span>
+										</span>
+										<p class="recommendation-reason">
+											{{ item.reason }}
+										</p>
+									</li>
+								</ul>
+							</div>
+							<div class="recommendation-block">
+								<h4>分析方向</h4>
+								<ul>
+									<li
+										v-for="(item, index) in chat.recommendation.analysis_directions"
+										:key="`direction-${index}`"
+									>
+										{{ item }}
+									</li>
+								</ul>
+							</div>
+						</div>
             <!-- 表格區 -->
             <div
               v-if="chat.relations"
@@ -405,6 +454,54 @@ $radius-20: 20px;
 							padding-left: 16px;
 							padding-right: 16px;
 							font-size: 16px;
+						}
+					}
+
+					.recommendation-area {
+						display: flex;
+						flex-direction: column;
+						gap: 0.75rem;
+						padding: 0.75rem;
+						border: 1px solid $white;
+						border-radius: $radius-10;
+						background: $card-bg;
+
+						h4 {
+							margin: 0 0 0.35rem 0;
+							font-size: 14px;
+							color: $white;
+						}
+
+						p,
+						li {
+							font-size: 13px;
+							color: $white;
+							margin: 0;
+						}
+
+						ul {
+							padding-left: 1.1rem;
+							margin: 0;
+							display: flex;
+							flex-direction: column;
+							gap: 0.35rem;
+						}
+
+						.recommendation-block {
+							display: flex;
+							flex-direction: column;
+							gap: 0.25rem;
+						}
+
+						.recommendation-meta {
+							opacity: 0.7;
+							font-size: 12px;
+							margin-left: 4px;
+						}
+
+						.recommendation-reason {
+							opacity: 0.85;
+							font-size: 12px;
 						}
 					}
 

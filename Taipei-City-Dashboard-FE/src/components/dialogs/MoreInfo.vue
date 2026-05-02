@@ -111,6 +111,9 @@ function getLinkTag(link, index) {
           </div>
         </div>
         <div class="moreinfo-info-control">
+					<button @click="dialogStore.showDialog('chatBox')">
+						<span>smart_toy</span>推薦分析
+					</button>
           <button
             v-if="authStore.token"
             @click="

@@ -50,7 +50,6 @@ const frequency = ref(600);
 const isMappedToUpdateBoards = ref(false);
 // Chatroom
 const isChatBtnShow = ref(true);
-const isChatBoxShow = ref(false);
 // Timers
 let chartTimer = null;
 let crowdingTimer = null;
@@ -162,12 +161,12 @@ function reload3DMRTMapData() {
 
 // Chatroom 功能顯示隱藏
 function chatbotBtnHandler() {
-	isChatBoxShow.value = !isChatBoxShow.value;
+	dialogStore.dialogs.chatBox = !dialogStore.dialogs.chatBox;
 }
 
 function hideBtnClickHandler() {
 	isChatBtnShow.value = false;
-	isChatBoxShow.value = false;
+	dialogStore.dialogs.chatBox = false;
 }
 
 (watch(
@@ -275,7 +274,7 @@ onBeforeUnmount(() => {
     </div>
     <div class="chatbot-container">
       <ChatBox
-        v-if="isChatBoxShow"
+				v-if="dialogStore.dialogs.chatBox"
         class="chatbox"
       />
       <div
