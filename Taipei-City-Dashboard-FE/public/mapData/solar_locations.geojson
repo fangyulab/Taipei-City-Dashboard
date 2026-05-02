@@ -1,0 +1,1331 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.56065,
+          25.034115
+        ]
+      },
+      "properties": {
+        "site_name": "臺北市市政大樓北區屋頂",
+        "district": "信義區",
+        "capacity_kwp": 5.1,
+        "device_type": "一般照明",
+        "owner": "臺北市市政大樓公共事務管理中心"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.584232,
+          25.0812
+        ]
+      },
+      "properties": {
+        "site_name": "臺北市內湖區行忠路178巷1號內湖再生傢俱展示場 3樓",
+        "district": "內湖區",
+        "capacity_kwp": 10.84,
+        "device_type": "一般照明",
+        "owner": "臺北市政府環境保護局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.501967,
+          25.134192
+        ]
+      },
+      "properties": {
+        "site_name": "關渡河濱公園",
+        "district": "北投區",
+        "capacity_kwp": 0.3,
+        "device_type": "LED景觀燈",
+        "owner": "臺北市政府水利工程處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.509369,
+          25.045537
+        ]
+      },
+      "properties": {
+        "site_name": "臺北市雨水下水道內(70處，每處35W)",
+        "district": "中正區",
+        "capacity_kwp": 2.45,
+        "device_type": "雨水下水道水位監測設備",
+        "owner": "臺北市政府水利工程處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.508798,
+          25.041775
+        ]
+      },
+      "properties": {
+        "site_name": "二二八和平公園",
+        "district": "中正區",
+        "capacity_kwp": 0.07,
+        "device_type": "太陽能路燈",
+        "owner": "臺北市政府工務局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.565454,
+          25.030749
+        ]
+      },
+      "properties": {
+        "site_name": "停車資訊導引標誌(2 片)",
+        "district": "信義區",
+        "capacity_kwp": 0.22,
+        "device_type": "nan",
+        "owner": "臺北市停車管理處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.562388,
+          25.029212
+        ]
+      },
+      "properties": {
+        "site_name": "停車資訊導引標誌(2 片)",
+        "district": "信義區",
+        "capacity_kwp": 0.22,
+        "device_type": "nan",
+        "owner": "臺北市停車管理處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.565849,
+          25.034199
+        ]
+      },
+      "properties": {
+        "site_name": "7F射箭場外平臺",
+        "district": "信義區",
+        "capacity_kwp": 5.2,
+        "device_type": "一般照明",
+        "owner": "臺北市體育處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.501093,
+          25.130064
+        ]
+      },
+      "properties": {
+        "site_name": "北投分館頂樓",
+        "district": "北投區",
+        "capacity_kwp": 16.32,
+        "device_type": "一般照明",
+        "owner": "臺北市立圖書館"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.495265,
+          25.134775
+        ]
+      },
+      "properties": {
+        "site_name": "石牌分館南側外牆立面",
+        "district": "北投區",
+        "capacity_kwp": 8.64,
+        "device_type": "搭配提供圖書館全棟之用電需求",
+        "owner": "臺北市立圖書館"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.579081,
+          25.059947
+        ]
+      },
+      "properties": {
+        "site_name": "五樓頂樓 LED燈",
+        "district": "松山區",
+        "capacity_kwp": 5.1,
+        "device_type": "一般照明",
+        "owner": "臺北小巨蛋"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.528455,
+          25.046522
+        ]
+      },
+      "properties": {
+        "site_name": "臺北翡翠水庫管理局操作大樓屋頂",
+        "district": "石碇區",
+        "capacity_kwp": 0.065,
+        "device_type": "翡翠雨量水位站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.530266,
+          25.051458
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣坪林鄉水聳淒坑水聳淒坑小段1-2等地號",
+        "district": "坪林鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "坪林雨量水位站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.527867,
+          25.044542
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣石碇鄉小格頭段小金瓜寮十三股小段30 之2A地號",
+        "district": "石碇鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "十三股雨量站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.532937,
+          25.05058
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣石碇鄉乾溝段石碇子小段69甲&69乙地號",
+        "district": "石碇鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "九芎根雨量站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.534197,
+          25.050257
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣坪林鄉九芎林段倒吊子小段13之3地號",
+        "district": "坪林鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "碧湖雨量站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.536631,
+          25.04809
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣雙溪鄉太平段後寮子小段308之2A地號",
+        "district": "雙溪鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "太平雨量站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.53242,
+          25.046828
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣坪林鄉頄逮頄堀段頄堀小段8地號",
+        "district": "坪林鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "逮頄溪水位站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.533085,
+          25.050435
+        ]
+      },
+      "properties": {
+        "site_name": "臺北翡翠水庫管理局辦公區內",
+        "district": "石碇區",
+        "capacity_kwp": 0.065,
+        "device_type": "水文測報綜合氣象站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.532674,
+          25.050694
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣坪林鄉水柳腳187之5號後面",
+        "district": "坪林鄉",
+        "capacity_kwp": 0.065,
+        "device_type": "坪林汙水廠水位站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.527358,
+          25.049437
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣新店市直潭山三角點旁",
+        "district": "新店市",
+        "capacity_kwp": 0.065,
+        "device_type": "水文測報無線電中繼站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.529794,
+          25.045623
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣新店市直潭山三角點旁",
+        "district": "新店市",
+        "capacity_kwp": 0.6,
+        "device_type": "無線電中繼站",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.529228,
+          25.044438
+        ]
+      },
+      "properties": {
+        "site_name": "臺北縣石碇鄉火燒樟大段火燒樟小段90號",
+        "district": "石碇鄉",
+        "capacity_kwp": 0.035,
+        "device_type": "無線電第2號公共分臺",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.52968,
+          25.044608
+        ]
+      },
+      "properties": {
+        "site_name": "翡翠水庫附近車閂寮",
+        "district": "石碇區",
+        "capacity_kwp": 0.035,
+        "device_type": "無線電第10 號公共分臺",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.530548,
+          25.048885
+        ]
+      },
+      "properties": {
+        "site_name": "翡翠水庫2號隧道附近",
+        "district": "石碇區",
+        "capacity_kwp": 0.043,
+        "device_type": "無線電R10公共分臺",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.528995,
+          25.046761
+        ]
+      },
+      "properties": {
+        "site_name": "翡翠水庫2號橋附近",
+        "district": "石碇區",
+        "capacity_kwp": 0.05,
+        "device_type": "簡易道路照明",
+        "owner": "臺北翡翠水庫管理局"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.578467,
+          24.997136
+        ]
+      },
+      "properties": {
+        "site_name": "節能屋",
+        "district": "文山區",
+        "capacity_kwp": 1.7,
+        "device_type": "教育展示",
+        "owner": "臺北市立動物園"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.575191,
+          25.000184
+        ]
+      },
+      "properties": {
+        "site_name": "路燈照明",
+        "district": "文山區",
+        "capacity_kwp": 0.11,
+        "device_type": "教育展示",
+        "owner": "臺北市立動物園"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.515791,
+          25.039769
+        ]
+      },
+      "properties": {
+        "site_name": "自來水博物館園區親子戲水池旁",
+        "district": "中正區",
+        "capacity_kwp": 6.48,
+        "device_type": "一般照明及景觀用噴泉(馬達)",
+        "owner": "臺北自來水事業處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.512295,
+          25.039707
+        ]
+      },
+      "properties": {
+        "site_name": "公館淨水場淨水池頂及管理廊屋頂",
+        "district": "中正區",
+        "capacity_kwp": 258.75,
+        "device_type": "場區部分電力及一般照明",
+        "owner": "臺北自來水事業處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.5255,
+          25.097316
+        ]
+      },
+      "properties": {
+        "site_name": "劍潭站",
+        "district": "士林區",
+        "capacity_kwp": 2.728,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.525946,
+          25.093856
+        ]
+      },
+      "properties": {
+        "site_name": "士林站",
+        "district": "士林區",
+        "capacity_kwp": 0.0,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.51626,
+          25.045143
+        ]
+      },
+      "properties": {
+        "site_name": "公館站",
+        "district": "中正區",
+        "capacity_kwp": 0.0,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.538521,
+          25.023832
+        ]
+      },
+      "properties": {
+        "site_name": "忠孝新生站",
+        "district": "大安區",
+        "capacity_kwp": 0.0,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.540877,
+          25.024524
+        ]
+      },
+      "properties": {
+        "site_name": "忠孝復興站",
+        "district": "大安區",
+        "capacity_kwp": 0.0,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.569829,
+          25.030688
+        ]
+      },
+      "properties": {
+        "site_name": "國父紀念館站",
+        "district": "信義區",
+        "capacity_kwp": 0.0,
+        "device_type": "捷運標誌燈",
+        "owner": "臺北大眾捷運股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.521847,
+          25.066111
+        ]
+      },
+      "properties": {
+        "site_name": "司令臺",
+        "district": "中山區",
+        "capacity_kwp": 0.19,
+        "device_type": "一般照明",
+        "owner": "臺北市立中山女子高級中學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.499156,
+          25.133544
+        ]
+      },
+      "properties": {
+        "site_name": "B棟大樓頂樓",
+        "district": "北投區",
+        "capacity_kwp": 0.44,
+        "device_type": "一般照明",
+        "owner": "臺北市立北投區泉源國民小學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.606489,
+          25.058316
+        ]
+      },
+      "properties": {
+        "site_name": "思恩樓2樓",
+        "district": "南港區",
+        "capacity_kwp": 1.5,
+        "device_type": "電子看板",
+        "owner": "臺北市立三民國民小學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.497666,
+          25.130419
+        ]
+      },
+      "properties": {
+        "site_name": "B棟頂樓",
+        "district": "北投區",
+        "capacity_kwp": 0.0,
+        "device_type": "一般照明",
+        "owner": "臺北市政府公務人員訓練處"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.521727,
+          25.093891
+        ]
+      },
+      "properties": {
+        "site_name": "頂樓平臺",
+        "district": "士林區",
+        "capacity_kwp": 60.2,
+        "device_type": "併聯太陽能系統",
+        "owner": "士東市場"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.528078,
+          25.094077
+        ]
+      },
+      "properties": {
+        "site_name": "北棟大樓頂",
+        "district": "士林區",
+        "capacity_kwp": 2.1,
+        "device_type": "照明或回饋臺電",
+        "owner": "溪山國民小學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.584193,
+          25.082195
+        ]
+      },
+      "properties": {
+        "site_name": "溫水游泳池屋頂",
+        "district": "內湖區",
+        "capacity_kwp": 0.16,
+        "device_type": "一般照明",
+        "owner": "內湖垃圾焚化爐"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.500295,
+          25.13628
+        ]
+      },
+      "properties": {
+        "site_name": "行政大樓前門兩側",
+        "district": "北投區",
+        "capacity_kwp": 0.00048,
+        "device_type": "庭園燈",
+        "owner": "北投垃圾焚化爐"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.508871,
+          25.059727
+        ]
+      },
+      "properties": {
+        "site_name": "車棚頂部",
+        "district": "大同區",
+        "capacity_kwp": 0.013,
+        "device_type": "路前燈",
+        "owner": "大橋國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.575374,
+          24.995877
+        ]
+      },
+      "properties": {
+        "site_name": "行政大樓頂樓",
+        "district": "文山區",
+        "capacity_kwp": 1.4,
+        "device_type": "夜間照明",
+        "owner": "萬芳高中"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.576322,
+          25.059837
+        ]
+      },
+      "properties": {
+        "site_name": "成功樓5樓頂",
+        "district": "松山區",
+        "capacity_kwp": 2.08,
+        "device_type": "成功樓科技廣場夜間景觀照明",
+        "owner": "松山高級工農職業學校"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.522916,
+          25.089908
+        ]
+      },
+      "properties": {
+        "site_name": "士林官邸北側附近地區專案住宅景觀工程(士林區福林段2小段155地號等8筆)(加總)",
+        "district": "士林區",
+        "capacity_kwp": 4.94,
+        "device_type": "照明",
+        "owner": "地政處土地開發總隊"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.524391,
+          25.097369
+        ]
+      },
+      "properties": {
+        "site_name": "生態池",
+        "district": "士林區",
+        "capacity_kwp": 0.024,
+        "device_type": "抽水設備",
+        "owner": "蘭雅國中"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.527308,
+          25.066869
+        ]
+      },
+      "properties": {
+        "site_name": "1.連通走廊二座2.學生宿舍二一座樓陽臺",
+        "district": "中山區",
+        "capacity_kwp": 0.24,
+        "device_type": "操場庭園燈",
+        "owner": "臺北市立啟明學校"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.589207,
+          25.079092
+        ]
+      },
+      "properties": {
+        "site_name": "信義樓頂樓",
+        "district": "內湖區",
+        "capacity_kwp": 2.04,
+        "device_type": "操場夜間照明",
+        "owner": "新湖國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.58737,
+          25.084454
+        ]
+      },
+      "properties": {
+        "site_name": "警衛室屋頂",
+        "district": "內湖區",
+        "capacity_kwp": 0.085,
+        "device_type": "夜間照明燈",
+        "owner": "新湖國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.58841,
+          25.081135
+        ]
+      },
+      "properties": {
+        "site_name": "二樓童軍教室外",
+        "district": "內湖區",
+        "capacity_kwp": 0.085,
+        "device_type": "夜間照明燈",
+        "owner": "新湖國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.586348,
+          25.079892
+        ]
+      },
+      "properties": {
+        "site_name": "西側門跑道旁",
+        "district": "內湖區",
+        "capacity_kwp": 0.085,
+        "device_type": "夜間照明燈",
+        "owner": "新湖國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.591538,
+          25.08263
+        ]
+      },
+      "properties": {
+        "site_name": "警衛室屋頂",
+        "district": "內湖區",
+        "capacity_kwp": 0.13,
+        "device_type": "生態池噴泉及循環泵浦",
+        "owner": "新湖國小"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.511134,
+          25.045407
+        ]
+      },
+      "properties": {
+        "site_name": "力行樓頂樓",
+        "district": "中正區",
+        "capacity_kwp": 10.5,
+        "device_type": "一般照明",
+        "owner": "總統府"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.510287,
+          25.042405
+        ]
+      },
+      "properties": {
+        "site_name": "行政舊樓頂樓",
+        "district": "中正區",
+        "capacity_kwp": 10.032,
+        "device_type": "一般照明",
+        "owner": "立法院"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.517205,
+          25.045701
+        ]
+      },
+      "properties": {
+        "site_name": "D棟屋頂",
+        "district": "中正區",
+        "capacity_kwp": 20.0,
+        "device_type": "教育展示",
+        "owner": "經濟部"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.514889,
+          25.040788
+        ]
+      },
+      "properties": {
+        "site_name": "實踐大樓頂樓",
+        "district": "中正區",
+        "capacity_kwp": 5.0,
+        "device_type": "一般照明",
+        "owner": "行政院環境保護署"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.510028,
+          25.043272
+        ]
+      },
+      "properties": {
+        "site_name": "檢修大樓",
+        "district": "中正區",
+        "capacity_kwp": 20.16,
+        "device_type": "市電並聯型",
+        "owner": "臺灣電力公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.524094,
+          25.0652
+        ]
+      },
+      "properties": {
+        "site_name": "4樓頂",
+        "district": "中山區",
+        "capacity_kwp": 10.0,
+        "device_type": "資通訊設備",
+        "owner": "中華電信股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.524004,
+          25.065329
+        ]
+      },
+      "properties": {
+        "site_name": "10樓頂",
+        "district": "中山區",
+        "capacity_kwp": 15.75,
+        "device_type": "辦公室用電",
+        "owner": "中華電信股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.521942,
+          25.059105
+        ]
+      },
+      "properties": {
+        "site_name": "13樓頂",
+        "district": "中山區",
+        "capacity_kwp": 4.32,
+        "device_type": "辦公室用電",
+        "owner": "中華電信股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.547491,
+          25.022156
+        ]
+      },
+      "properties": {
+        "site_name": "國際大樓頂樓",
+        "district": "大安區",
+        "capacity_kwp": 36.0,
+        "device_type": "一般照明",
+        "owner": "國立臺灣科技大學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.546517,
+          25.02903
+        ]
+      },
+      "properties": {
+        "site_name": "建築系設計館外牆",
+        "district": "大安區",
+        "capacity_kwp": 5.44,
+        "device_type": "一般照明",
+        "owner": "國立臺北科技大學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.582579,
+          25.08146
+        ]
+      },
+      "properties": {
+        "site_name": "體育室",
+        "district": "內湖區",
+        "capacity_kwp": 5.1,
+        "device_type": "市電並聯",
+        "owner": "中華技術學院"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.528169,
+          25.066124
+        ]
+      },
+      "properties": {
+        "site_name": "鐘塔頂樓",
+        "district": "中山區",
+        "capacity_kwp": 1.8,
+        "device_type": "一般照明",
+        "owner": "臺北市私立復興實驗高級中學"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.56526,
+          25.029685
+        ]
+      },
+      "properties": {
+        "site_name": "頂樓",
+        "district": "信義區",
+        "capacity_kwp": 33.92,
+        "device_type": "大樓供電",
+        "owner": "伊頓飛瑞慕品股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.568006,
+          25.029554
+        ]
+      },
+      "properties": {
+        "site_name": "機車停車棚(1F)",
+        "district": "信義區",
+        "capacity_kwp": 9.6,
+        "device_type": "大樓供電",
+        "owner": "伊頓飛瑞慕品股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.509784,
+          25.044527
+        ]
+      },
+      "properties": {
+        "site_name": "福安紀念館南側立面",
+        "district": "中正區",
+        "capacity_kwp": 19.8,
+        "device_type": "臺電並聯",
+        "owner": "明東實業股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.587498,
+          25.082802
+        ]
+      },
+      "properties": {
+        "site_name": "頂樓",
+        "district": "內湖區",
+        "capacity_kwp": 5.12,
+        "device_type": "大樓供電",
+        "owner": "臺達電子工業股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.569124,
+          25.03112
+        ]
+      },
+      "properties": {
+        "site_name": "屋頂",
+        "district": "信義區",
+        "capacity_kwp": 9.99,
+        "device_type": "辦公用電",
+        "owner": "立信開發股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.562518,
+          25.032385
+        ]
+      },
+      "properties": {
+        "site_name": "12樓屋頂",
+        "district": "信義區",
+        "capacity_kwp": 4.32,
+        "device_type": "nan",
+        "owner": "阿曼開發股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.567699,
+          25.033314
+        ]
+      },
+      "properties": {
+        "site_name": "12樓屋頂",
+        "district": "信義區",
+        "capacity_kwp": 4.68,
+        "device_type": "臺電並聯",
+        "owner": "順達開發有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.585117,
+          25.080609
+        ]
+      },
+      "properties": {
+        "site_name": "i-PARK案 A.B棟頂樓",
+        "district": "內湖區",
+        "capacity_kwp": 15.3,
+        "device_type": "一般照明",
+        "owner": "華固建設股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.566899,
+          25.036961
+        ]
+      },
+      "properties": {
+        "site_name": "7樓屋頂R2",
+        "district": "信義區",
+        "capacity_kwp": 6.4,
+        "device_type": "nan",
+        "owner": "廣宇建設實業股份有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.543376,
+          25.025505
+        ]
+      },
+      "properties": {
+        "site_name": "屋突3層",
+        "district": "大安區",
+        "capacity_kwp": 1.4,
+        "device_type": "公共照明",
+        "owner": "三多立建設開發有限公司"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.529147,
+          25.044768
+        ]
+      },
+      "properties": {
+        "site_name": "樓頂",
+        "district": "nan",
+        "capacity_kwp": 3.006,
+        "device_type": "臺電並聯",
+        "owner": "李美華"
+      }
+    }
+  ]
+}

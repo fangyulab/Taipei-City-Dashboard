@@ -14,7 +14,7 @@ export const MapObjectConfig = {
 	zoom: 9,
 	minZoom: 9,
 	maxZoom: 22,
-	projection: "globe", // display the map as a 3D globe
+	projection: "mercator", // globe projection causes transformMat4 errors in mapbox-gl v3
 };
 
 // City Map View Settings
