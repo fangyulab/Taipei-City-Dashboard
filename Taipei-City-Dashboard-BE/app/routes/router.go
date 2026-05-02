@@ -41,6 +41,7 @@ func ConfigureRoutes() {
 	configureContributorRoutes()
 	configureChatLogRoutes()
 	configureAIRoutes()
+	configureSolarRoutes()
 }
 
 func configureAuthRoutes() {
@@ -228,3 +229,12 @@ func configureAIRoutes() {
 // 		wsRoutes.PUT("/write/", controllers.WriteMap)
 // 	}
 // }
+
+func configureSolarRoutes() {
+    solarRoutes := RouterGroup.Group("/solar")
+    solarRoutes.Use(middleware.LimitAPIRequests(global.ComponentLimitAPIRequestsTimes, global.LimitRequestsDuration))
+    solarRoutes.Use(middleware.LimitTotalRequests(global.ComponentLimitTotalRequestsTimes, global.LimitRequestsDuration))
+    {
+        solarRoutes.POST("/estimate", controllers.EstimateSolarCarbon)
+    }
+}

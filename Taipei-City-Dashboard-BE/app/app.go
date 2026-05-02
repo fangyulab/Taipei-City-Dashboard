@@ -18,6 +18,8 @@ import (
 	"TaipeiCityDashboardBE/app/routes"
 	"TaipeiCityDashboardBE/global"
 	"TaipeiCityDashboardBE/logs"
+	"TaipeiCityDashboardBE/app/utils"
+
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
@@ -38,7 +40,10 @@ func StartApplication() {
 	global.LMSession = models.InitLmSession()
 	global.LMTokenizer = models.InitTokenizer()
 
-	// 2. Initiate default Gin router with logger and recovery middleware
+	// 2. solar
+	go utils.InitDistrictPSH()
+
+	// 3. Initiate default Gin router with logger and recovery middleware
 	routes.Router = gin.Default()
 
 	// Set trusted proxies to ensure ClientIP() returns the user's actual IP.
@@ -49,7 +54,7 @@ func StartApplication() {
     } 
 
 
-	// 3. Add common middlewares that need to run on all routes
+	// 4. Add common middlewares that need to run on all routes
 	routes.Router.Use(middleware.AddCommonHeaders)
 	routes.Router.Use(middleware.SanitizeXForwardedFor)
 	// routes.Router.Use(cors.New(cors.Config{
@@ -60,10 +65,10 @@ func StartApplication() {
 	// 	AllowCredentials: true,
 	// }))
 
-	// 4. Configure routes and routing groups (./router.go)
+	// 5. Configure routes and routing groups (./router.go)
 	routes.ConfigureRoutes()
 
-	// 5. Configure http server
+	// 6. Configure http server
 	addr := global.GinAddr
 
 	err := endless.ListenAndServe(addr, routes.Router)
@@ -79,7 +84,6 @@ func StartApplication() {
 	// If the server stops, close the lm session and environment
 	global.LMSession.Destroy()
 	ort.DestroyEnvironment()
-	
 }
 
 func MigrateManagerSchema() {
