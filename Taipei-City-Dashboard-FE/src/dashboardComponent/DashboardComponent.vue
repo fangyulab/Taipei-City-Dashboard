@@ -29,6 +29,7 @@ import IconPercentChart from "./components/IconPercentChart.vue";
 import IndicatorChart from "./components/IndicatorChart.vue";
 import TextUnitChart from "./components/TextUnitChart.vue";
 import CarbonTreeChart from "./components/CarbonTreeChart.vue";
+import SolarYearlyChart from "./components/SolarYearlyChart.vue";
 
 import MapLegendSvg from "./assets/chart/MapLegend.svg";
 import DistrictChartSvg from "./assets/chart/DistrictChart.svg";
@@ -225,6 +226,8 @@ function returnChartComponent(name, svg) {
 		return svg ? TextUnitChartSvg : TextUnitChart;
 	case "CarbonTreeChart":
     	return svg ? MapLegendSvg : CarbonTreeChart;  // 暫用 MapLegend 的 SVG 圖示
+	case "SolarYearlyChart":
+		return svg ? ColumnChartSvg : SolarYearlyChart;
 	default:
 		return svg ? MapLegendSvg : MapLegend;
 	}

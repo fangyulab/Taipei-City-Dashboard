@@ -20,6 +20,7 @@ export const chartTypes = {
 	MapLegend: "地圖圖例",
 	TextUnitChart: "文字單位圖",
 	CarbonTreeChart: "節碳種樹圖",
+	SolarYearlyChart: "太陽能年度趨勢圖",
 };
 
 export const chartsPerDataType = {
@@ -43,6 +44,7 @@ export const chartsPerDataType = {
 		"IndicatorChart",
 		"PolarAreaChart",
 		"TextUnitChart",
+		"SolarYearlyChart",
 	],
 	time: ["TimelineSeparateChart", "TimelineStackedChart", "ColumnLineChart"],
 	percent: [
