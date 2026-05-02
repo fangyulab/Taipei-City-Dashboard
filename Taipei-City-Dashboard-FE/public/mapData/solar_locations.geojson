@@ -15,7 +15,8 @@
         "district": "信義區",
         "capacity_kwp": 5.1,
         "device_type": "一般照明",
-        "owner": "臺北市市政大樓公共事務管理中心"
+        "owner": "臺北市市政大樓公共事務管理中心",
+        "address": "臺北市信義區市府路1號"
       }
     },
     {
@@ -32,7 +33,8 @@
         "district": "內湖區",
         "capacity_kwp": 10.84,
         "device_type": "一般照明",
-        "owner": "臺北市政府環境保護局"
+        "owner": "臺北市政府環境保護局",
+        "address": "臺北市內湖區行忠路178巷1號內湖再生傢俱展示場 3樓"
       }
     },
     {
@@ -49,7 +51,8 @@
         "district": "北投區",
         "capacity_kwp": 0.3,
         "device_type": "LED景觀燈",
-        "owner": "臺北市政府水利工程處"
+        "owner": "臺北市政府水利工程處",
+        "address": "臺北市北投區關渡地區"
       }
     },
     {
@@ -66,7 +69,8 @@
         "district": "中正區",
         "capacity_kwp": 2.45,
         "device_type": "雨水下水道水位監測設備",
-        "owner": "臺北市政府水利工程處"
+        "owner": "臺北市政府水利工程處",
+        "address": ""
       }
     },
     {
@@ -83,7 +87,8 @@
         "district": "中正區",
         "capacity_kwp": 0.07,
         "device_type": "太陽能路燈",
-        "owner": "臺北市政府工務局"
+        "owner": "臺北市政府工務局",
+        "address": "臺北市中正區凱達格蘭大道3號"
       }
     },
     {
@@ -100,7 +105,8 @@
         "district": "信義區",
         "capacity_kwp": 0.22,
         "device_type": "nan",
-        "owner": "臺北市停車管理處"
+        "owner": "臺北市停車管理處",
+        "address": ""
       }
     },
     {
@@ -117,7 +123,8 @@
         "district": "信義區",
         "capacity_kwp": 0.22,
         "device_type": "nan",
-        "owner": "臺北市停車管理處"
+        "owner": "臺北市停車管理處",
+        "address": ""
       }
     },
     {
@@ -134,7 +141,8 @@
         "district": "信義區",
         "capacity_kwp": 5.2,
         "device_type": "一般照明",
-        "owner": "臺北市體育處"
+        "owner": "臺北市體育處",
+        "address": "臺北市信義區市府路1號"
       }
     },
     {
@@ -151,7 +159,8 @@
         "district": "北投區",
         "capacity_kwp": 16.32,
         "device_type": "一般照明",
-        "owner": "臺北市立圖書館"
+        "owner": "臺北市立圖書館",
+        "address": "臺北市北投區光明路251號"
       }
     },
     {
@@ -168,7 +177,8 @@
         "district": "北投區",
         "capacity_kwp": 8.64,
         "device_type": "搭配提供圖書館全棟之用電需求",
-        "owner": "臺北市立圖書館"
+        "owner": "臺北市立圖書館",
+        "address": "臺北市北投區明德路208巷5號"
       }
     },
     {
@@ -185,7 +195,8 @@
         "district": "松山區",
         "capacity_kwp": 5.1,
         "device_type": "一般照明",
-        "owner": "臺北小巨蛋"
+        "owner": "臺北小巨蛋",
+        "address": "臺北市松山區南京東路4段2號"
       }
     },
     {
@@ -200,9 +211,10 @@
       "properties": {
         "site_name": "臺北翡翠水庫管理局操作大樓屋頂",
         "district": "石碇區",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "翡翠雨量水位站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "新北市石碇區永定里乾溝路二段1號"
       }
     },
     {
@@ -217,9 +229,10 @@
       "properties": {
         "site_name": "臺北縣坪林鄉水聳淒坑水聳淒坑小段1-2等地號",
         "district": "坪林鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "坪林雨量水位站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣坪林鄉水聳淒坑水聳淒坑小段1-2等地號"
       }
     },
     {
@@ -234,9 +247,10 @@
       "properties": {
         "site_name": "臺北縣石碇鄉小格頭段小金瓜寮十三股小段30 之2A地號",
         "district": "石碇鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "十三股雨量站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣石碇鄉小格頭段小金瓜寮十三股小段30 之2A地號"
       }
     },
     {
@@ -251,9 +265,10 @@
       "properties": {
         "site_name": "臺北縣石碇鄉乾溝段石碇子小段69甲&69乙地號",
         "district": "石碇鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "九芎根雨量站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣石碇鄉乾溝段石碇子小段69甲&69乙地號"
       }
     },
     {
@@ -268,9 +283,10 @@
       "properties": {
         "site_name": "臺北縣坪林鄉九芎林段倒吊子小段13之3地號",
         "district": "坪林鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "碧湖雨量站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣坪林鄉九芎林段倒吊子小段13之3地號"
       }
     },
     {
@@ -285,9 +301,10 @@
       "properties": {
         "site_name": "臺北縣雙溪鄉太平段後寮子小段308之2A地號",
         "district": "雙溪鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "太平雨量站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣雙溪鄉太平段後寮子小段308之2A地號"
       }
     },
     {
@@ -302,9 +319,10 @@
       "properties": {
         "site_name": "臺北縣坪林鄉頄逮頄堀段頄堀小段8地號",
         "district": "坪林鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "逮頄溪水位站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣坪林鄉頄逮頄堀段頄堀小段8地號"
       }
     },
     {
@@ -319,9 +337,10 @@
       "properties": {
         "site_name": "臺北翡翠水庫管理局辦公區內",
         "district": "石碇區",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "水文測報綜合氣象站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "新北市石碇區永定里乾溝路二段1號"
       }
     },
     {
@@ -336,9 +355,10 @@
       "properties": {
         "site_name": "臺北縣坪林鄉水柳腳187之5號後面",
         "district": "坪林鄉",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "坪林汙水廠水位站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣坪林鄉水柳腳187之5號後面"
       }
     },
     {
@@ -353,9 +373,10 @@
       "properties": {
         "site_name": "臺北縣新店市直潭山三角點旁",
         "district": "新店市",
-        "capacity_kwp": 0.065,
+        "capacity_kwp": 0.07,
         "device_type": "水文測報無線電中繼站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣新店市直潭山三角點旁"
       }
     },
     {
@@ -372,7 +393,8 @@
         "district": "新店市",
         "capacity_kwp": 0.6,
         "device_type": "無線電中繼站",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣新店市直潭山三角點旁"
       }
     },
     {
@@ -387,9 +409,10 @@
       "properties": {
         "site_name": "臺北縣石碇鄉火燒樟大段火燒樟小段90號",
         "district": "石碇鄉",
-        "capacity_kwp": 0.035,
+        "capacity_kwp": 0.04,
         "device_type": "無線電第2號公共分臺",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "臺北縣石碇鄉火燒樟大段火燒樟小段90號"
       }
     },
     {
@@ -404,9 +427,10 @@
       "properties": {
         "site_name": "翡翠水庫附近車閂寮",
         "district": "石碇區",
-        "capacity_kwp": 0.035,
+        "capacity_kwp": 0.04,
         "device_type": "無線電第10 號公共分臺",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "新北市石碇區永定里"
       }
     },
     {
@@ -421,9 +445,10 @@
       "properties": {
         "site_name": "翡翠水庫2號隧道附近",
         "district": "石碇區",
-        "capacity_kwp": 0.043,
+        "capacity_kwp": 0.04,
         "device_type": "無線電R10公共分臺",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "新北市石碇區永定里"
       }
     },
     {
@@ -440,7 +465,8 @@
         "district": "石碇區",
         "capacity_kwp": 0.05,
         "device_type": "簡易道路照明",
-        "owner": "臺北翡翠水庫管理局"
+        "owner": "臺北翡翠水庫管理局",
+        "address": "新北市石碇區永定里"
       }
     },
     {
@@ -457,7 +483,8 @@
         "district": "文山區",
         "capacity_kwp": 1.7,
         "device_type": "教育展示",
-        "owner": "臺北市立動物園"
+        "owner": "臺北市立動物園",
+        "address": "臺北市文山區新光路二段30號"
       }
     },
     {
@@ -474,7 +501,8 @@
         "district": "文山區",
         "capacity_kwp": 0.11,
         "device_type": "教育展示",
-        "owner": "臺北市立動物園"
+        "owner": "臺北市立動物園",
+        "address": "臺北市文山區新光路二段30號"
       }
     },
     {
@@ -491,7 +519,8 @@
         "district": "中正區",
         "capacity_kwp": 6.48,
         "device_type": "一般照明及景觀用噴泉(馬達)",
-        "owner": "臺北自來水事業處"
+        "owner": "臺北自來水事業處",
+        "address": "臺北市中正區思源街1號"
       }
     },
     {
@@ -508,7 +537,8 @@
         "district": "中正區",
         "capacity_kwp": 258.75,
         "device_type": "場區部分電力及一般照明",
-        "owner": "臺北自來水事業處"
+        "owner": "臺北自來水事業處",
+        "address": "臺北市中正區思源街1號"
       }
     },
     {
@@ -523,9 +553,10 @@
       "properties": {
         "site_name": "劍潭站",
         "district": "士林區",
-        "capacity_kwp": 2.728,
+        "capacity_kwp": 2.73,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市士林區中山北路五段510號"
       }
     },
     {
@@ -540,9 +571,10 @@
       "properties": {
         "site_name": "士林站",
         "district": "士林區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市士林區基河路23號"
       }
     },
     {
@@ -557,9 +589,10 @@
       "properties": {
         "site_name": "公館站",
         "district": "中正區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市中正區羅斯福路四段1號"
       }
     },
     {
@@ -574,9 +607,10 @@
       "properties": {
         "site_name": "忠孝新生站",
         "district": "大安區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市大安區忠孝東路三段1號"
       }
     },
     {
@@ -591,9 +625,10 @@
       "properties": {
         "site_name": "忠孝復興站",
         "district": "大安區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市大安區忠孝東路四段1號"
       }
     },
     {
@@ -608,9 +643,10 @@
       "properties": {
         "site_name": "國父紀念館站",
         "district": "信義區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "捷運標誌燈",
-        "owner": "臺北大眾捷運股份有限公司"
+        "owner": "臺北大眾捷運股份有限公司",
+        "address": "臺北市信義區忠孝東路五段71號"
       }
     },
     {
@@ -627,7 +663,8 @@
         "district": "中山區",
         "capacity_kwp": 0.19,
         "device_type": "一般照明",
-        "owner": "臺北市立中山女子高級中學"
+        "owner": "臺北市立中山女子高級中學",
+        "address": ""
       }
     },
     {
@@ -644,7 +681,8 @@
         "district": "北投區",
         "capacity_kwp": 0.44,
         "device_type": "一般照明",
-        "owner": "臺北市立北投區泉源國民小學"
+        "owner": "臺北市立北投區泉源國民小學",
+        "address": ""
       }
     },
     {
@@ -661,7 +699,8 @@
         "district": "南港區",
         "capacity_kwp": 1.5,
         "device_type": "電子看板",
-        "owner": "臺北市立三民國民小學"
+        "owner": "臺北市立三民國民小學",
+        "address": ""
       }
     },
     {
@@ -676,9 +715,10 @@
       "properties": {
         "site_name": "B棟頂樓",
         "district": "北投區",
-        "capacity_kwp": 0.0,
+        "capacity_kwp": 0,
         "device_type": "一般照明",
-        "owner": "臺北市政府公務人員訓練處"
+        "owner": "臺北市政府公務人員訓練處",
+        "address": ""
       }
     },
     {
@@ -695,7 +735,8 @@
         "district": "士林區",
         "capacity_kwp": 60.2,
         "device_type": "併聯太陽能系統",
-        "owner": "士東市場"
+        "owner": "士東市場",
+        "address": ""
       }
     },
     {
@@ -712,7 +753,8 @@
         "district": "士林區",
         "capacity_kwp": 2.1,
         "device_type": "照明或回饋臺電",
-        "owner": "溪山國民小學"
+        "owner": "溪山國民小學",
+        "address": ""
       }
     },
     {
@@ -729,7 +771,8 @@
         "district": "內湖區",
         "capacity_kwp": 0.16,
         "device_type": "一般照明",
-        "owner": "內湖垃圾焚化爐"
+        "owner": "內湖垃圾焚化爐",
+        "address": ""
       }
     },
     {
@@ -744,9 +787,10 @@
       "properties": {
         "site_name": "行政大樓前門兩側",
         "district": "北投區",
-        "capacity_kwp": 0.00048,
+        "capacity_kwp": 0,
         "device_type": "庭園燈",
-        "owner": "北投垃圾焚化爐"
+        "owner": "北投垃圾焚化爐",
+        "address": ""
       }
     },
     {
@@ -761,9 +805,10 @@
       "properties": {
         "site_name": "車棚頂部",
         "district": "大同區",
-        "capacity_kwp": 0.013,
+        "capacity_kwp": 0.01,
         "device_type": "路前燈",
-        "owner": "大橋國小"
+        "owner": "大橋國小",
+        "address": ""
       }
     },
     {
@@ -780,7 +825,8 @@
         "district": "文山區",
         "capacity_kwp": 1.4,
         "device_type": "夜間照明",
-        "owner": "萬芳高中"
+        "owner": "萬芳高中",
+        "address": ""
       }
     },
     {
@@ -797,7 +843,8 @@
         "district": "松山區",
         "capacity_kwp": 2.08,
         "device_type": "成功樓科技廣場夜間景觀照明",
-        "owner": "松山高級工農職業學校"
+        "owner": "松山高級工農職業學校",
+        "address": ""
       }
     },
     {
@@ -814,7 +861,8 @@
         "district": "士林區",
         "capacity_kwp": 4.94,
         "device_type": "照明",
-        "owner": "地政處土地開發總隊"
+        "owner": "地政處土地開發總隊",
+        "address": "臺北市士林區福林路60號附近"
       }
     },
     {
@@ -829,9 +877,10 @@
       "properties": {
         "site_name": "生態池",
         "district": "士林區",
-        "capacity_kwp": 0.024,
+        "capacity_kwp": 0.02,
         "device_type": "抽水設備",
-        "owner": "蘭雅國中"
+        "owner": "蘭雅國中",
+        "address": ""
       }
     },
     {
@@ -848,7 +897,8 @@
         "district": "中山區",
         "capacity_kwp": 0.24,
         "device_type": "操場庭園燈",
-        "owner": "臺北市立啟明學校"
+        "owner": "臺北市立啟明學校",
+        "address": ""
       }
     },
     {
@@ -865,7 +915,8 @@
         "district": "內湖區",
         "capacity_kwp": 2.04,
         "device_type": "操場夜間照明",
-        "owner": "新湖國小"
+        "owner": "新湖國小",
+        "address": ""
       }
     },
     {
@@ -880,9 +931,10 @@
       "properties": {
         "site_name": "警衛室屋頂",
         "district": "內湖區",
-        "capacity_kwp": 0.085,
+        "capacity_kwp": 0.09,
         "device_type": "夜間照明燈",
-        "owner": "新湖國小"
+        "owner": "新湖國小",
+        "address": ""
       }
     },
     {
@@ -897,9 +949,10 @@
       "properties": {
         "site_name": "二樓童軍教室外",
         "district": "內湖區",
-        "capacity_kwp": 0.085,
+        "capacity_kwp": 0.09,
         "device_type": "夜間照明燈",
-        "owner": "新湖國小"
+        "owner": "新湖國小",
+        "address": ""
       }
     },
     {
@@ -914,9 +967,10 @@
       "properties": {
         "site_name": "西側門跑道旁",
         "district": "內湖區",
-        "capacity_kwp": 0.085,
+        "capacity_kwp": 0.09,
         "device_type": "夜間照明燈",
-        "owner": "新湖國小"
+        "owner": "新湖國小",
+        "address": ""
       }
     },
     {
@@ -933,7 +987,8 @@
         "district": "內湖區",
         "capacity_kwp": 0.13,
         "device_type": "生態池噴泉及循環泵浦",
-        "owner": "新湖國小"
+        "owner": "新湖國小",
+        "address": ""
       }
     },
     {
@@ -950,7 +1005,8 @@
         "district": "中正區",
         "capacity_kwp": 10.5,
         "device_type": "一般照明",
-        "owner": "總統府"
+        "owner": "總統府",
+        "address": "臺北市中正區重慶南路一段122號"
       }
     },
     {
@@ -965,9 +1021,10 @@
       "properties": {
         "site_name": "行政舊樓頂樓",
         "district": "中正區",
-        "capacity_kwp": 10.032,
+        "capacity_kwp": 10.03,
         "device_type": "一般照明",
-        "owner": "立法院"
+        "owner": "立法院",
+        "address": "臺北市中正區中山南路一號"
       }
     },
     {
@@ -982,9 +1039,10 @@
       "properties": {
         "site_name": "D棟屋頂",
         "district": "中正區",
-        "capacity_kwp": 20.0,
+        "capacity_kwp": 20,
         "device_type": "教育展示",
-        "owner": "經濟部"
+        "owner": "經濟部",
+        "address": "臺北市中正區福州街15號"
       }
     },
     {
@@ -999,9 +1057,10 @@
       "properties": {
         "site_name": "實踐大樓頂樓",
         "district": "中正區",
-        "capacity_kwp": 5.0,
+        "capacity_kwp": 5,
         "device_type": "一般照明",
-        "owner": "行政院環境保護署"
+        "owner": "行政院環境保護署",
+        "address": "臺北市中正區中華路一段83號"
       }
     },
     {
@@ -1018,7 +1077,8 @@
         "district": "中正區",
         "capacity_kwp": 20.16,
         "device_type": "市電並聯型",
-        "owner": "臺灣電力公司"
+        "owner": "臺灣電力公司",
+        "address": "臺北市中正區羅斯福路三段242號"
       }
     },
     {
@@ -1033,9 +1093,10 @@
       "properties": {
         "site_name": "4樓頂",
         "district": "中山區",
-        "capacity_kwp": 10.0,
+        "capacity_kwp": 10,
         "device_type": "資通訊設備",
-        "owner": "中華電信股份有限公司"
+        "owner": "中華電信股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1052,7 +1113,8 @@
         "district": "中山區",
         "capacity_kwp": 15.75,
         "device_type": "辦公室用電",
-        "owner": "中華電信股份有限公司"
+        "owner": "中華電信股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1069,7 +1131,8 @@
         "district": "中山區",
         "capacity_kwp": 4.32,
         "device_type": "辦公室用電",
-        "owner": "中華電信股份有限公司"
+        "owner": "中華電信股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1084,9 +1147,10 @@
       "properties": {
         "site_name": "國際大樓頂樓",
         "district": "大安區",
-        "capacity_kwp": 36.0,
+        "capacity_kwp": 36,
         "device_type": "一般照明",
-        "owner": "國立臺灣科技大學"
+        "owner": "國立臺灣科技大學",
+        "address": "臺北市大安區基隆路四段43號"
       }
     },
     {
@@ -1103,7 +1167,8 @@
         "district": "大安區",
         "capacity_kwp": 5.44,
         "device_type": "一般照明",
-        "owner": "國立臺北科技大學"
+        "owner": "國立臺北科技大學",
+        "address": "臺北市大安區忠孝東路三段1號"
       }
     },
     {
@@ -1120,7 +1185,8 @@
         "district": "內湖區",
         "capacity_kwp": 5.1,
         "device_type": "市電並聯",
-        "owner": "中華技術學院"
+        "owner": "中華技術學院",
+        "address": "臺北市內湖區環山路一段19巷3號"
       }
     },
     {
@@ -1137,7 +1203,8 @@
         "district": "中山區",
         "capacity_kwp": 1.8,
         "device_type": "一般照明",
-        "owner": "臺北市私立復興實驗高級中學"
+        "owner": "臺北市私立復興實驗高級中學",
+        "address": "臺北市中山區復興北路363號"
       }
     },
     {
@@ -1154,7 +1221,8 @@
         "district": "信義區",
         "capacity_kwp": 33.92,
         "device_type": "大樓供電",
-        "owner": "伊頓飛瑞慕品股份有限公司"
+        "owner": "伊頓飛瑞慕品股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1171,7 +1239,8 @@
         "district": "信義區",
         "capacity_kwp": 9.6,
         "device_type": "大樓供電",
-        "owner": "伊頓飛瑞慕品股份有限公司"
+        "owner": "伊頓飛瑞慕品股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1188,7 +1257,8 @@
         "district": "中正區",
         "capacity_kwp": 19.8,
         "device_type": "臺電並聯",
-        "owner": "明東實業股份有限公司"
+        "owner": "明東實業股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1205,7 +1275,8 @@
         "district": "內湖區",
         "capacity_kwp": 5.12,
         "device_type": "大樓供電",
-        "owner": "臺達電子工業股份有限公司"
+        "owner": "臺達電子工業股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1222,7 +1293,8 @@
         "district": "信義區",
         "capacity_kwp": 9.99,
         "device_type": "辦公用電",
-        "owner": "立信開發股份有限公司"
+        "owner": "立信開發股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1239,7 +1311,8 @@
         "district": "信義區",
         "capacity_kwp": 4.32,
         "device_type": "nan",
-        "owner": "阿曼開發股份有限公司"
+        "owner": "阿曼開發股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1256,7 +1329,8 @@
         "district": "信義區",
         "capacity_kwp": 4.68,
         "device_type": "臺電並聯",
-        "owner": "順達開發有限公司"
+        "owner": "順達開發有限公司",
+        "address": ""
       }
     },
     {
@@ -1273,7 +1347,8 @@
         "district": "內湖區",
         "capacity_kwp": 15.3,
         "device_type": "一般照明",
-        "owner": "華固建設股份有限公司"
+        "owner": "華固建設股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1290,7 +1365,8 @@
         "district": "信義區",
         "capacity_kwp": 6.4,
         "device_type": "nan",
-        "owner": "廣宇建設實業股份有限公司"
+        "owner": "廣宇建設實業股份有限公司",
+        "address": ""
       }
     },
     {
@@ -1307,7 +1383,8 @@
         "district": "大安區",
         "capacity_kwp": 1.4,
         "device_type": "公共照明",
-        "owner": "三多立建設開發有限公司"
+        "owner": "三多立建設開發有限公司",
+        "address": ""
       }
     },
     {
@@ -1322,9 +1399,10 @@
       "properties": {
         "site_name": "樓頂",
         "district": "nan",
-        "capacity_kwp": 3.006,
+        "capacity_kwp": 3.01,
         "device_type": "臺電並聯",
-        "owner": "李美華"
+        "owner": "李美華",
+        "address": ""
       }
     }
   ]
