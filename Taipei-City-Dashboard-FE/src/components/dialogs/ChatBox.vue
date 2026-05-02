@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick, computed } from "vue";
 import { storeToRefs } from "pinia";
 import SendIcon from "../icons/SendIcon.vue";
 import BotLogo from "../icons/BotLogo.vue";
@@ -13,28 +13,39 @@ import http from "../../router/axios";
 const chatStore = useChatStore();
 const contentStore = useContentStore();
 const authStore = useAuthStore();
-const { addChatData, addQueryData, saveChatLog } = chatStore;
+const { addChatData, addQueryData, addGenerativeQuery, saveChatLog, toggleMode, toggleComponent, selectAllComponents, deselectAllComponents } = chatStore;
 const { createDashboard } = contentStore;
-const { chatData } = storeToRefs(chatStore);
-const { editDashboard } = storeToRefs(contentStore);
+const { chatData, chatMode, selectedComponentIds, isGenerating } = storeToRefs(chatStore);
+const { editDashboard, currentDashboard } = storeToRefs(contentStore);
 const { user } = storeToRefs(authStore);
 
 const userMessage = ref("");
 const chatAreaRef = ref(null);
 const isStickyOpen = ref(false);
 const dashboardCreationLoading = ref(false);
+const showComponentPicker = ref(false);
+
+// 當前儀表板的組件列表
+const currentComponents = computed(() => {
+	if (!currentDashboard.value?.components) return [];
+	return currentDashboard.value.components.filter(c => c && c.name);
+});
+
+// 全選狀態
+const isAllSelected = computed(() => {
+	if (currentComponents.value.length === 0) return false;
+	return currentComponents.value.every(c => selectedComponentIds.value.includes(c.id));
+});
 
 const qaBtnHandler = async (text, relations) => {
 	if (text === "建立儀表板") {
 		if (dashboardCreationLoading.value === true) return;
 		dashboardCreationLoading.value = true;
-		// 確認個人儀表板是否超過20個
 		const response = await http.get(`/dashboard/`);
 		if (response.data?.data?.personal?.length > 20) {
 			addChatData({
 				role: "bot",
-				content:
-					"您的個人儀表板已超出限制 20 個，請先移除既有儀表板後，重新執行本功能！",
+				content: "您的個人儀表板已超出限制 20 個，請先移除既有儀表板後，重新執行本功能！",
 			});
 			dashboardCreationLoading.value = false;
 			return;
@@ -64,15 +75,31 @@ const qaBtnHandler = async (text, relations) => {
 
 const sendBtnHandler = (text) => {
 	if (!text.trim()) return;
-	addQueryData({
-		role: "user",
-		content: text,
-	});
+	if (isGenerating.value) return;
+
+	if (chatMode.value === 'generative') {
+		// 生成式問答模式
+		addGenerativeQuery(
+			{ role: "user", content: text },
+			currentComponents.value
+		);
+	} else {
+		// 搜尋模式
+		addQueryData({ role: "user", content: text });
+	}
 	userMessage.value = "";
 };
 
 const toggleSticky = () => {
 	isStickyOpen.value = !isStickyOpen.value;
+};
+
+const handleToggleAll = () => {
+	if (isAllSelected.value) {
+		deselectAllComponents();
+	} else {
+		selectAllComponents(currentComponents.value.map(c => c.id));
+	}
 };
 
 watch(
@@ -85,6 +112,16 @@ watch(
 	},
 	{ deep: true },
 );
+
+// 切換到生成式模式時，預設全選組件
+watch(
+	() => chatMode.value,
+	(newMode) => {
+		if (newMode === 'generative' && currentComponents.value.length > 0) {
+			selectAllComponents(currentComponents.value.map(c => c.id));
+		}
+	}
+);
 </script>
 
 <template>
@@ -92,6 +129,62 @@ watch(
     <!-- 標題 -->
     <div class="header">
       <h3>臺北城市儀表板小幫手</h3>
+      <!-- 模式切換 -->
+      <div class="mode-toggle">
+        <button
+          :class="{ active: chatMode === 'search' }"
+          @click="toggleMode('search')"
+        >
+          組件搜尋
+        </button>
+        <button
+          :class="{ active: chatMode === 'generative' }"
+          @click="toggleMode('generative')"
+        >
+          數據問答
+        </button>
+      </div>
+    </div>
+
+    <!-- 生成式模式：組件勾選區 -->
+    <div
+      v-if="chatMode === 'generative'"
+      class="component-picker"
+    >
+      <div
+        class="component-picker-header"
+        @click="showComponentPicker = !showComponentPicker"
+      >
+        <span>參考組件 ({{ selectedComponentIds.length }}/{{ currentComponents.length }})</span>
+        <button class="toggle-btn">
+          {{ showComponentPicker ? '▲' : '▼' }}
+        </button>
+      </div>
+      <div
+        v-show="showComponentPicker"
+        class="component-picker-list"
+      >
+        <label class="component-picker-item select-all">
+          <input
+            type="checkbox"
+            :checked="isAllSelected"
+            @change="handleToggleAll"
+          >
+          <span>全選</span>
+        </label>
+        <label
+          v-for="comp in currentComponents"
+          :key="comp.id"
+          class="component-picker-item"
+        >
+          <input
+            type="checkbox"
+            :checked="selectedComponentIds.includes(comp.id)"
+            @change="toggleComponent(comp.id)"
+          >
+          <span>{{ comp.name }}</span>
+        </label>
+      </div>
     </div>
 
     <!-- 聊天區 -->
@@ -114,8 +207,10 @@ watch(
           v-show="isStickyOpen"
           class="sticky-body"
         >
-          <span>小幫手會依據您輸入的內容，自動檢索本站臺的組件資料庫，並回傳相似度較高的組件清單，協助您快速找到符合需求的元件或資訊。<br><br>
-            目前小幫手僅提供組件比對與分析服務，不支援一般聊天功能。如造成不便，敬請見諒！</span>
+          <span v-if="chatMode === 'search'">小幫手會依據您輸入的內容，自動檢索本站臺的組件資料庫，並回傳相似度較高的組件清單，協助您快速找到符合需求的元件或資訊。<br><br>
+            目前搜尋模式僅提供組件比對與分析服務。切換至「數據問答」模式可直接向 AI 提問。</span>
+          <span v-else>在「數據問答」模式下，您可以勾選當前儀表板的組件，AI 會根據這些組件的實際數據回答您的問題。<br><br>
+            例如：「台北市太陽能裝置容量近五年成長了多少？」「哪個行政區的日照量最高？」</span>
         </div>
       </div>
       <div
@@ -135,6 +230,7 @@ watch(
             <div
               v-if="chat.content"
               class="message--bubble"
+              :class="{ 'is-loading': chat.isLoading, 'is-generative': chat.isGenerative }"
             >
               <p>{{ chat.content }}</p>
             </div>
@@ -212,10 +308,14 @@ watch(
       <input
         v-model="userMessage"
         type="text"
-        placeholder="輸入訊息..."
+        :placeholder="chatMode === 'generative' ? '根據勾選的組件數據提問...' : '輸入訊息...'"
+        :disabled="isGenerating"
         @keyup.enter="sendBtnHandler(userMessage)"
       >
-      <button @click="sendBtnHandler(userMessage)">
+      <button
+        :disabled="isGenerating"
+        @click="sendBtnHandler(userMessage)"
+      >
         <SendIcon />
       </button>
     </div>
@@ -271,15 +371,123 @@ $radius-20: 20px;
 	flex-direction: column;
 
 	.header {
-		padding: 1rem;
+		padding: 0.8rem 1rem;
 		background: $panel-bg;
 		border-bottom: 3px solid $border-color;
 
 		h3 {
-			font-size: 18px;
+			font-size: 16px;
 			font-weight: 700;
 			color: $white;
-			margin: 0;
+			margin: 0 0 0.5rem 0;
+		}
+	}
+
+	.mode-toggle {
+		display: flex;
+		gap: 4px;
+		background: rgba(0, 0, 0, 0.3);
+		border-radius: 8px;
+		padding: 2px;
+
+		button {
+			flex: 1;
+			padding: 5px 12px;
+			border: none;
+			border-radius: 6px;
+			background: transparent;
+			color: #999;
+			font-size: 13px;
+			cursor: pointer;
+			transition: all 0.2s;
+
+			&.active {
+				background: #5b9bd5;
+				color: $white;
+				font-weight: 600;
+			}
+
+			&:hover:not(.active) {
+				color: $white;
+			}
+		}
+	}
+
+	.component-picker {
+		border-bottom: 1px solid $border-color;
+		background: #1a1a1a;
+
+		&-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			cursor: pointer;
+			font-size: 13px;
+			color: #ccc;
+
+			&:hover {
+				color: $white;
+			}
+
+			.toggle-btn {
+				background: none;
+				border: none;
+				color: inherit;
+				font-size: 10px;
+				cursor: pointer;
+			}
+		}
+
+		&-list {
+			max-height: 150px;
+			overflow-y: auto;
+			padding: 0 8px 8px;
+
+			&::-webkit-scrollbar {
+				width: 2px;
+			}
+			&::-webkit-scrollbar-thumb {
+				background: #666;
+				border-radius: 2px;
+			}
+		}
+
+		&-item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 4px 8px;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 13px;
+			color: #ccc;
+			transition: background 0.15s;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.08);
+			}
+
+			&.select-all {
+				border-bottom: 1px solid #333;
+				margin-bottom: 4px;
+				padding-bottom: 8px;
+				font-weight: 600;
+				color: #5b9bd5;
+			}
+
+			input[type="checkbox"] {
+				accent-color: #5b9bd5;
+				width: 14px;
+				height: 14px;
+				cursor: pointer;
+			}
+
+			span {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 	}
 
@@ -396,6 +604,15 @@ $radius-20: 20px;
 						border-radius: $radius-10;
 						background: $card-bg;
 
+						&.is-loading {
+							opacity: 0.6;
+							animation: pulse 1.5s ease-in-out infinite;
+						}
+
+						&.is-generative {
+							border-color: #5b9bd5;
+						}
+
 						p {
 							color: $white;
 							white-space: pre-line;
@@ -451,6 +668,11 @@ $radius-20: 20px;
 			border: none;
 			outline: none;
 			color: black;
+
+			&:disabled {
+				opacity: 0.6;
+				cursor: not-allowed;
+			}
 		}
 
 		button {
@@ -465,7 +687,17 @@ $radius-20: 20px;
 			&:hover {
 				filter: brightness(0.5);
 			}
+
+			&:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
 		}
 	}
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 0.6; }
+	50% { opacity: 0.3; }
 }
 </style>
