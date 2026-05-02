@@ -211,15 +211,15 @@ async function handleEstimate() {
 
   const payload = {
     address: address.value,
-    area_ping: parseFloat(areaValue.value),
+    area: parseFloat(areaValue.value) * 3.30579,  // 坪轉平方公尺
     roof_type: roofType.value,
-    roof_direction: roofDirection.value,
+    roof_dir: roofDirection.value,
   };
 
   try {
     // 嘗試呼叫後端 API
     const response = await fetch(
-      "http://localhost:8080/api/v1/solar/estimate",
+      "/api/dev/solar/estimate",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -507,31 +507,26 @@ onBeforeUnmount(() => {
           <div class="solarestimate-result-item">
             <span class="label">預估裝置容量</span>
             <span class="value">{{
-              resultData?.estimated_capacity_kw || estimatedCapacity
-            }}
-              kW</span>
+              Math.round((resultData?.capacity_kw || resultData?.estimated_capacity_kw || estimatedCapacity) * 10) / 10
+            }} kW</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">年發電量</span>
             <span class="value">{{
-              (
-                resultData?.annual_generation_kwh || annualGeneration
-              ).toLocaleString()
-            }}
-              度</span>
+              Math.round(resultData?.annual_generation_kwh || annualGeneration).toLocaleString()
+            }} 度</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">年減碳量</span>
             <span class="value">{{
-              resultData?.carbon_reduction_tons || carbonReduction
-            }}
-              公噸</span>
+              Math.round((resultData?.carbon_reduction_ton || resultData?.carbon_reduction_tons || carbonReduction) * 100) / 100
+            }} 公噸</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">屋頂面積</span>
-            <span class="value">{{ areaValue }} 坪</span>
+            <span class="value">{{ Math.round(areaValue * 10) / 10 }} 坪</span>
           </div>
-        </div>
+		  </div>
 
         <div class="solarestimate-result-actions">
           <button

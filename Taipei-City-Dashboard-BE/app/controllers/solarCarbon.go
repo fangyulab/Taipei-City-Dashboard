@@ -3,11 +3,11 @@ package controllers
 import (
     "net/http"
     "github.com/gin-gonic/gin"
-    "github.com/tpe-doit/Taipei-City-Dashboard-BE/app/utils"
+    "TaipeiCityDashboardBE/app/util"
 )
 
 func EstimateSolarCarbon(c *gin.Context) {
-    var input utils.SolarInput
+    var input util.SolarInput
 
     if err := c.ShouldBindJSON(&input); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{
@@ -21,7 +21,7 @@ func EstimateSolarCarbon(c *gin.Context) {
         return
     }
 
-    result, err := utils.CalcSolarCarbon(input)
+    result, err := util.CalcSolarCarbon(input)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return

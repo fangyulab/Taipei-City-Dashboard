@@ -18,7 +18,7 @@ import (
 	"TaipeiCityDashboardBE/app/routes"
 	"TaipeiCityDashboardBE/global"
 	"TaipeiCityDashboardBE/logs"
-	"TaipeiCityDashboardBE/app/utils"
+	"TaipeiCityDashboardBE/app/util"
 
 
 	"github.com/fvbock/endless"
@@ -41,7 +41,7 @@ func StartApplication() {
 	global.LMTokenizer = models.InitTokenizer()
 
 	// 2. solar
-	go utils.InitDistrictPSH()
+	go util.InitDistrictPSH()
 
 	// 3. Initiate default Gin router with logger and recovery middleware
 	routes.Router = gin.Default()
