@@ -9,9 +9,12 @@
 ```powershell
 cd C:\Users\你的帳號\Documents\GitHub\Taipei-City-Dashboard\docker
 
-# 匯出兩個資料庫（加 --clean 自動產生 DROP 語句）
-docker exec postgres-manager pg_dump -U postgres --clean --no-owner dashboardmanager > sql/dashboardmanager_backup.sql
-docker exec postgres-data pg_dump -U postgres --clean --no-owner dashboard > sql/dashboard_backup.sql
+# 匯出兩個資料庫（在容器內寫檔，避免 Windows 編碼問題）
+docker exec postgres-manager pg_dump -U postgres --clean --no-owner dashboardmanager -f /tmp/dashboardmanager_backup.sql
+docker cp postgres-manager:/tmp/dashboardmanager_backup.sql sql/dashboardmanager_backup.sql
+
+docker exec postgres-data pg_dump -U postgres --clean --no-owner dashboard -f /tmp/dashboard_backup.sql
+docker cp postgres-data:/tmp/dashboard_backup.sql sql/dashboard_backup.sql
 
 # 推到 GitHub
 git add sql/
