@@ -810,14 +810,12 @@ aging_kpi	{#F65658,#F49F36,#F5C860,#9AC17C,#4CB495,#569C9A,#60819C,#2F8AB1}	{Tex
 aging_workforce_trend	{#24B0DD,#56B96D,#F8CF58,#F5AD4A,#E170A6,#ED6A45,#AF4137,#10294A}	{BarPercentChart,RadarChart,ColumnChart}	%
 bike_network	{#a0b8e8,#b7ff98}	{DonutChart,BarChart}	公里
 bike_map	{#a0b8e8,#b7ff98}	{MapLegend}	條
-demo_aed_locations	{#5a9cf8,#f5a524,#e55c5c,#26c07c,#9b59b6,#3498db,#e67e22,#1abc9c,#e74c3c,#2ecc71,#f39c12,#8e44ad}	{DonutChart,BarChart}	台
 solar_capacity_district	{#f39c12}	{BarChart,ColumnChart}	kWp
-carbon_tree	{#3498db,#f39c12,#2ecc71}	{ColumnChart}	棵
-solar_capacity_yearly	{#F5A524,#5B9BD5}	{ColumnChart}	瓩
 sunshine_monthly	{#FF6B35,#F7C948,#4ECDC4,#1A535C,#6B5B95}	{RadarChart,ColumnChart,HeatmapChart}	小時
 carbon_tree_estimate	{#6abf69,#4a9e49}	{CarbonTreeChart}	棵
 energy_generation	{#3498db,#f39c12,#2ecc71}	{ColumnChart}	萬度
 carbon_tree_yearly	{#3498db,#f39c12,#2ecc71}	{ColumnChart}	棵
+solar_capacity_yearly	{#F5A524,#5B9BD5}	{SolarYearlyChart}	瓩
 \.
 
 
@@ -830,7 +828,6 @@ COPY public.component_maps (id, index, title, type, source, size, icon, paint, p
 99	youbike_realtime_metrotaipei	youbike站點	symbol	geojson	\N	youbike	{}	[{"key":"sna","name":"場站名稱"},{"key":"sno","name":"場站ID"},{"key":"available_return_bikes","name":"可還車位"},{"key":"available_rent_general_bikes","name":"剩餘車輛"}]
 100	bike_network_tpe	自行車路網	line	geojson	\N	\N	{"line-color":["match",["get","direction"],"雙向","#097138","單向","#007BFF","#808080"]}	[\r\n  {"key": "data_time", "name": "數據時間"},\r\n  {"key": "route_name", "name": "路線名稱"},\r\n  {"key": "city_code", "name": "城市代碼"},\r\n  {"key": "city", "name": "城市"},\r\n  {"key": "road_section_start", "name": "起點路段"},\r\n  {"key": "road_section_end", "name": "終點路段"},\r\n  {"key": "direction", "name": "方向"},\r\n  {"key": "cycling_length", "name": "自行車道長度"},\r\n  {"key": "finished_time", "name": "完工時間"},\r\n  {"key": "update_time", "name": "更新時間"}\r\n]
 101	bike_network_metrotaipei	自行車路網	line	geojson	\N	\N	{"line-color":["match",["get","direction"],"雙向","#097138","單向","#007BFF","#808080"]}	[\r\n  {"key": "data_time", "name": "數據時間"},\r\n  {"key": "route_name", "name": "路線名稱"},\r\n  {"key": "city_code", "name": "城市代碼"},\r\n  {"key": "city", "name": "城市"},\r\n  {"key": "road_section_start", "name": "起點路段"},\r\n  {"key": "road_section_end", "name": "終點路段"},\r\n  {"key": "direction", "name": "方向"},\r\n  {"key": "cycling_length", "name": "自行車道長度"},\r\n  {"key": "finished_time", "name": "完工時間"},\r\n  {"key": "update_time", "name": "更新時間"}\r\n]
-1	demo_aed_locations	AED 設備位置	circle	geojson	\N	\N	{"circle-color": "#e55c5c", "circle-radius": 6, "circle-opacity": 0.8}	[{"key":"name","name":"設備名稱"},{"key":"district","name":"行政區"},{"key":"location","name":"設置位置"},{"key":"status","name":"狀態"}]
 3	solar_capacity_district	太陽光電設置容量分布	fill	geojson	\N	\N	{"fill-color": ["interpolate", ["linear"], ["get", "capacity_kwp"], 0, "#FFF9C4", 10, "#FFB74D", 50, "#F57C00", 100, "#E65100", 400, "#BF360C"], "fill-opacity": 0.7, "fill-outline-color": "#FFFFFF"}	[{"key":"name","name":"行政區"},{"key":"capacity_kwp","name":"設置容量(kWp)"},{"key":"city","name":"縣市"}]
 \.
 
@@ -848,14 +845,12 @@ COPY public.components (id, index, name, history_config) FROM stdin;
 218	aging_kpi	長照指標	\N
 215	aging_workforce_trend	高齡就業人口之年增結構	\N
 217	bike_map	自行車道路網圖資	\N
-1	demo_aed_locations	AED 設備分布	\N
 3	solar_capacity_district	各行政區太陽光電設置容量	\N
-10	carbon_tree	減碳數轉換樹量	\N
-11	solar_capacity_yearly	雙北太陽能裝置容量年度趨勢	\N
 12	sunshine_monthly	各站月平均日照時數	\N
 13	carbon_tree_estimate	太陽能節碳評估	\N
 2	energy_generation	再生能源躉購電量	\N
 14	carbon_tree_yearly	減碳數轉換樹量	\N
+11	solar_capacity_yearly	太陽能裝置容量年度趨勢	\N
 \.
 
 
@@ -900,7 +895,7 @@ COPY public.dashboards (id, index, name, components, icon, updated_at, created_a
 2	3245d9eace5f	我的新儀表板	{215,218,216,213,212,214,60,146}	star	2025-03-14 14:55:11.732116+00	2025-03-14 14:55:11.732116+00
 360	53151f82d473	收藏組件	\N	favorite	2026-05-02 04:52:45.384891+00	2026-05-02 04:52:45.384891+00
 368	251c7c83aee5	綠能發展	{13,12,14,11,3,2}	wb_sunny	2026-05-02 12:38:19.162198+00	2026-05-02 11:07:23.137595+00
-371	green_energy_tpe	綠能發展	{13,12,2,11,3,10}	solar_power	2026-05-02 14:20:09.931906+00	2026-05-02 14:20:09.931906+00
+371	green_energy_tpe	綠能發展	{13,12,2,11,3,14}	solar_power	2026-05-02 15:25:53.980547+00	2026-05-02 14:20:09.931906+00
 \.
 
 
@@ -955,20 +950,17 @@ ebus_percent	\N	\N	\N	static	\N	\N	\N	交通局	顯示雙北電動公車比例	�
 ebus_percent	\N	\N	\N	static	\N	\N	\N	交通局	顯示臺北電動公車比例	此圖顯示臺北市電動公車的比例，呈現全市公車車隊中電動車所占比重，以及近年來電動公車數量的成長情形。圖表比較傳統燃油公車與電動公車的比例變化，並標示臺北市政府推動電動化政策、補助措施及其帶來的環保效益。透過這些數據，可評估臺北市電動公車的普及程度，及其在減碳與空氣品質改善上的貢獻，有助於進一步規劃更完善的公共運輸電動化策略，推動城市交通朝向低碳永續目標邁進。	可用於評估臺北市公共運輸電動化的進程，透過此圖顯示電動公車在市區公車總數中的占比及其成長趨勢。圖表呈現傳統燃油公車與電動公車的比例變化，並標示臺北市政府推動的政策措施、補助方案及相關環保效益等影響因素。透過這些數據，可分析臺北市電動公車的普及程度及其在減碳排放與空氣品質改善方面的貢獻，有助於進一步規劃更完善的公共運輸電動化策略，推動臺北朝向低碳與永續發展的城市目標邁進。	{https://tdx.transportdata.tw/api/basic/v2/Bus/Vehicle/City/Taipei?%24top=30&%24format=JSON}	{doit}	2025-02-15 05:56:00+00	2025-02-20 09:11:21.620625+00	percent	select '電動公車數量' as x_axis,y_axis,sum(data) data from \r\n(\r\nselect '電動巴士' as y_axis,count(*) as  data\r\nfrom public.bus_info_tpe\r\nwhere plate_numb like 'E%'\r\nunion all\r\nselect '非電動巴士' as y_axis,count(*) as  data\r\nfrom public.bus_info_tpe)d\r\ngroup by \r\ny_axis	\N	taipei
 youbike_availability	\N	{99}	\N	current	\N	10	minute	交通局	顯示當前雙北共享單車YouBike的使用情況。	顯示雙北地區（臺北市與新北市）當前共享單車 YouBike 的使用情況，格式為可借車輛數／全區車位數。資料來源為兩市交通局公開資料，每5分鐘更新一次，提供即時的車輛可用資訊與站點使用狀況，有助於掌握整體運行效率與民眾使用情形，亦可作為交通管理與營運調度的參考依據。	藉由顯示雙北地區 YouBike 的使用情況，以及觀察可借車輛數約為車柱總數的一半，可大致掌握目前停放於站點與使用中車輛的整體分布情形。使用者亦可透過地圖模式查詢雙北各站點的即時資訊，包括可借車輛數、可還空位數及站點位置，方便規劃路線與掌握使用狀況，提升共享單車的便利性與使用效率。	{https://tdx.transportdata.tw/api-service/swagger/basic/2cc9b888-a592-496f-99de-9ab35b7fb70d#/Bike/BikeApi_Availability_2181,https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/NewTaipei?%24top=30&%24format=JSON}	{doit,ntpc}	2023-12-20 05:56:00+00	2024-03-19 06:08:17.99+00	percent	select x_axis,y_axis,sum(data)data\r\nfrom (select '在站車輛' as x_axis, \r\nunnest(ARRAY['可借車輛', '空位']) as y_axis, \r\nunnest(ARRAY[SUM(available_rent_general_bikes), SUM(available_return_bikes)]) as data\r\nfrom tran_ubike_realtime_new_tpe\r\nunion all \r\nselect '在站車輛' as x_axis, \r\nunnest(ARRAY['可借車輛', '空位']) as y_axis, \r\nunnest(ARRAY[SUM(available_rent_general_bikes), SUM(available_return_bikes)]) as data\r\nfrom tran_ubike_realtime)d\r\ngroup by x_axis,y_axis	\N	metrotaipei
 youbike_availability	\N	{70}	\N	current	\N	10	minute	交通局	顯示當前臺北市共享單車YouBike的使用情況。	顯示臺北市當前共享單車 YouBike 的使用情況，格式為可借車輛數／全市車位數。資料來源為臺北市政府交通局公開資料，每5分鐘更新一次，反映即時的使用狀況與車輛調度情形，可作為交通監測與市民使用參考依據。	藉由臺北市 YouBike 使用情況的顯示，以及全市可借車輛數約為車柱總數的一半，可大致掌握目前停放於站點與正在使用中的車輛數量。使用者可透過地圖模式查詢臺北市各站點的即時資訊，包括可借車輛數、可還空位數及站點位置，方便即時掌握使用狀況，提升共享單車的使用效率與便利性。	{https://tdx.transportdata.tw/api-service/swagger/basic/2cc9b888-a592-496f-99de-9ab35b7fb70d#/Bike/BikeApi_Availability_2181}	{doit}	2023-12-20 05:56:00+00	2024-03-19 06:08:17.99+00	percent	select '在站車輛' as x_axis, \r\nunnest(ARRAY['可借車輛', '空位']) as y_axis, \r\nunnest(ARRAY[SUM(available_rent_general_bikes), SUM(available_return_bikes)]) as data\r\nfrom tran_ubike_realtime	\N	taipei
-demo_aed_locations	\N	{1}	\N	current	\N	1	month	衛生局	AED 自動體外心臟除顫器分布	顯示台北市各行政區 AED 設備的分布情況	緊急救護資源配置參考	\N	{doit}	2026-05-02 07:32:17.375552+00	2026-05-02 07:32:17.375552+00	two_d	SELECT district as x_axis, count as data FROM demo_aed_locations ORDER BY count DESC	\N	taipei
 solar_capacity_district	\N	{3}	\N	static	\N	1	year	產業發展局	台北市各行政區太陽光電設置容量	顯示台北市各行政區太陽光電設置容量(kWp)分布情況，資料來源為台北市資料大平台。	評估各行政區太陽光電發展現況與潛力	\N	{doit}	2026-05-02 09:14:33.356713+00	2026-05-02 09:14:33.356713+00	two_d	SELECT district AS x_axis, capacity_kwp::int AS data FROM solar_capacity_district WHERE city = '台北市' ORDER BY capacity_kwp DESC	\N	taipei
 solar_capacity_district	\N	{3}	\N	static	\N	1	year	產業發展局/經濟發展局	雙北各行政區太陽光電設置容量	顯示雙北各行政區太陽光電設置容量(kWp)分布情況。	評估各行政區太陽光電發展現況與潛力	\N	{doit}	2026-05-02 09:14:34.143573+00	2026-05-02 09:14:34.143573+00	two_d	SELECT district AS x_axis, capacity_kwp::int AS data FROM solar_capacity_district ORDER BY capacity_kwp DESC	\N	metrotaipei
-carbon_tree	\N	\N	\N	static	\N	1	year	經濟發展局	再生能源減碳轉換樹量（台北市）	顯示台北市各年度再生能源的減碳數轉換為等量樹木數量	碳排放與再生能源政策參考	\N	{doit}	2026-05-02 09:59:20.901703+00	2026-05-02 09:59:20.901703+00	three_d	SELECT x_axis, y_axis, sum(data) AS data FROM (\n        SELECT year::text AS x_axis,\n        unnest(ARRAY['風力', '太陽光電', '其他(含水力)']) AS y_axis,\n        unnest(ARRAY[wind, solar, other]) AS data\n        FROM carbon_tree WHERE city = '台北市'\n    ) d GROUP BY x_axis, y_axis ORDER BY x_axis	\N	taipei
-carbon_tree	\N	\N	\N	static	\N	1	year	經濟發展局	再生能源減碳轉換樹量（雙北）	顯示台北市與新北市合計各年度再生能源的減碳數轉換為等量樹木數量	碳排放與再生能源政策參考	\N	{doit}	2026-05-02 09:59:21.670358+00	2026-05-02 09:59:21.670358+00	three_d	SELECT x_axis, y_axis, sum(data) AS data FROM (\n        SELECT year::text AS x_axis,\n        unnest(ARRAY['風力', '太陽光電', '其他(含水力)']) AS y_axis,\n        unnest(ARRAY[wind, solar, other]) AS data\n        FROM carbon_tree\n    ) d GROUP BY x_axis, y_axis ORDER BY x_axis	\N	metrotaipei
-solar_capacity_yearly	\N	\N	\N	static	\N	\N		台電	雙北太陽能裝置容量年度趨勢	顯示台北市與新北市歷年太陽光電裝置容量（瓩）變化趨勢，資料涵蓋民國102年至114年。	評估雙北太陽光電發展現況與政策成效	\N	{doit}	2026-05-02 10:50:28.122564+00	2026-05-02 10:50:28.122564+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['台北市', '新北市']) as y_axis, unnest(ARRAY[taipei_kw, newtaipei_kw]) as data from solar_capacity_yearly) d group by x_axis, y_axis order by x_axis	\N	taipei
 solar_capacity_yearly	\N	\N	\N	static	\N	\N		台電	雙北太陽能裝置容量年度趨勢	顯示台北市與新北市歷年太陽光電裝置容量（瓩）變化趨勢，資料涵蓋民國102年至114年。	評估雙北太陽光電發展現況與政策成效	\N	{doit}	2026-05-02 10:50:28.681101+00	2026-05-02 10:50:28.681101+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['台北市', '新北市']) as y_axis, unnest(ARRAY[taipei_kw, newtaipei_kw]) as data from solar_capacity_yearly) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
-sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	台北市各站月平均日照時數	顯示台北市氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:18.928842+00	2026-05-02 10:56:18.928842+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly where city = '台北市') d group by x_axis, y_axis order by x_axis, y_axis	\N	taipei
-sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	雙北各站月平均日照時數	顯示雙北氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:19.655494+00	2026-05-02 10:56:19.655494+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly) d group by x_axis, y_axis order by x_axis, y_axis	\N	metrotaipei
+carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	114年太陽能節碳等效種樹數	顯示台北市太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 11:34:23.213898+00	2026-05-02 11:34:23.213898+00	two_d	SELECT '等效種樹數' AS x_axis, SUM(total_trees)::int AS data FROM carbon_tree_yearly WHERE year = 2025 AND city = '台北市'	\N	taipei
 energy_generation	\N	\N	\N	static	\N	1	year	經濟發展局	雙北再生能源躉購電量統計	顯示雙北歷年再生能源（風力、太陽光電、水力）發電度數變化趨勢	評估再生能源政策成效與發展趨勢	\N	{doit}	2026-05-02 08:52:01.705065+00	2026-05-02 08:52:01.705065+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['風力', '太陽光電', '其他(含水力)']) as y_axis, unnest(ARRAY[wind_kwh/10000, solar_kwh/10000, hydro_kwh/10000]) as data from energy_generation) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
 carbon_tree_yearly	\N	\N	\N	static	\N	\N		台電	台北市再生能源減碳等效種樹數	顯示台北市歷年再生能源減碳量轉換為等效種樹數量	評估再生能源減碳成效	\N	{doit}	2026-05-02 12:34:02.455712+00	2026-05-02 12:34:02.455712+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['太陽光電', '風力', '其他(含水力)']) as y_axis, unnest(ARRAY[solar_trees, wind_trees, hydro_trees]) as data from carbon_tree_yearly where city = '台北市') d group by x_axis, y_axis order by x_axis	\N	taipei
-carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	114年太陽能節碳等效種樹數	顯示台北市太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 11:34:23.213898+00	2026-05-02 11:34:23.213898+00	two_d	SELECT '等效種樹數' AS x_axis, total_trees AS data FROM carbon_tree_yearly WHERE city = '台北市' AND year = 2025	\N	taipei
+sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	台北市各站月平均日照時數	顯示台北市氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:18.928842+00	2026-05-02 10:56:18.928842+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['01月','02月','03月','04月','05月','06月','07月','08月','09月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly where city = '台北市') d group by x_axis, y_axis order by x_axis, y_axis	\N	taipei
 carbon_tree_yearly	\N	\N	\N	static	\N	\N		台電	雙北再生能源減碳等效種樹數	顯示雙北歷年再生能源減碳量轉換為等效種樹數量	評估再生能源減碳成效	\N	{doit}	2026-05-02 12:34:02.756734+00	2026-05-02 12:34:02.756734+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, unnest(ARRAY['太陽光電', '風力', '其他(含水力)']) as y_axis, unnest(ARRAY[solar_trees, wind_trees, hydro_trees]) as data from carbon_tree_yearly) d group by x_axis, y_axis order by x_axis	\N	metrotaipei
-carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	雙北太陽能節碳等效種樹數	顯示雙北太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 14:23:25.133394+00	2026-05-02 14:23:25.133394+00	two_d	SELECT city AS x_axis, total_trees AS data FROM carbon_tree_yearly WHERE year = 2025 ORDER BY city	\N	metrotaipei
+sunshine_monthly	\N	\N	\N	static	\N	\N		中央氣象署	雙北各站月平均日照時數	顯示雙北氣象測站各月日照時數多年平均值，可評估各區太陽能發電潛力。	評估太陽光電設置潛力與季節性發電效率	\N	{doit}	2026-05-02 10:56:19.655494+00	2026-05-02 10:56:19.655494+00	three_d	select x_axis, y_axis, sum(data) as data from (select unnest(ARRAY['01月','02月','03月','04月','05月','06月','07月','08月','09月','10月','11月','12月']) as x_axis, station as y_axis, unnest(ARRAY[m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12]) as data from sunshine_monthly) d group by x_axis, y_axis order by x_axis, y_axis	\N	metrotaipei
+carbon_tree_estimate	\N	\N	\N	static	\N	\N		產業發展局	雙北太陽能節碳等效種樹數	顯示雙北太陽光電年度減碳成效，以等效種樹數量呈現。點擊可進行個人太陽能節碳潛力評估。	評估太陽能節碳潛力	\N	{doit}	2026-05-02 14:23:25.133394+00	2026-05-02 14:23:25.133394+00	two_d	SELECT '等效種樹數' AS x_axis, SUM(total_trees)::int AS data FROM carbon_tree_yearly WHERE year = 2025	\N	metrotaipei
+solar_capacity_yearly	\N	\N	\N	static	\N	\N		台電	雙北太陽能裝置容量年度趨勢	顯示台北市與新北市歷年太陽光電裝置容量（瓩）變化趨勢，資料涵蓋民國102年至114年。	評估雙北太陽光電發展現況與政策成效	\N	{doit}	2026-05-02 10:50:28.122564+00	2026-05-02 10:50:28.122564+00	three_d	select x_axis, y_axis, sum(data) as data from (select year::text as x_axis, '台北市' as y_axis, taipei_kw as data from solar_capacity_yearly) d group by x_axis, y_axis order by x_axis	\N	taipei
 \.
 
 
