@@ -259,20 +259,30 @@ function openEstimateDialog() {
         </text>
       </svg>
 
+      <!-- 樹的圖示 -->
       <div class="carbontreechart-trees">
         <svg
-          width="27"
-          height="34"
-          viewBox="0 0 100 128"
-          fill="none"
-          class="carbontreechart-tree big-tree"
+          v-for="i in 3"
+          :key="i"
+          viewBox="0 0 40 50"
+          :class="`carbontreechart-tree tree-${i}`"
         >
-          <path d="M22.4211 92.0139C22.4211 86.2609 27.0541 81.5972 32.7693 81.5972H39.6681C45.3832 81.5972 50.0163 86.2609 50.0163 92.0139V114.583C50.0163 120.336 45.3832 125 39.6681 125H32.7693C27.0541 125 22.4211 120.336 22.4211 114.583V92.0139Z" fill="#B38F75" />
-          <path d="M27.0364 5.28991C31.831 -1.76331 42.169 -1.7633 46.9636 5.28992L71.87 41.9295C77.3527 49.995 71.6152 60.9451 61.9064 60.9451H12.0936C2.38479 60.9451 -3.3527 49.995 2.12999 41.9295L27.0364 5.28991Z" fill="#AEDBA8" />
-          <path d="M27.0364 43.4844C31.831 36.4311 42.169 36.4311 46.9636 43.4844L71.87 80.1239C77.3527 88.1895 71.6152 99.1396 61.9064 99.1396H12.0936C2.38479 99.1396 -3.3527 88.1894 2.12999 80.1239L27.0364 43.4844Z" fill="#AEDBA8" />
-          <path d="M63.7554 104.778C63.7554 100.728 67.011 97.4444 71.0271 97.4444H75.8749C79.8909 97.4444 83.1466 100.728 83.1466 104.778V120.667C83.1466 124.717 79.8909 128 75.8749 128H71.0271C67.011 128 63.7554 124.717 63.7554 120.667V104.778Z" fill="#B38F75" />
-          <path d="M66.9986 43.7241C70.3677 38.7586 77.6323 38.7586 81.0014 43.7241L98.5033 69.5184C102.356 75.1965 98.3242 82.9054 91.5018 82.9054H56.4982C49.6758 82.9054 45.644 75.1965 49.4968 69.5183L66.9986 43.7241Z" fill="#83C07B" />
-          <path d="M66.9986 70.613C70.3677 65.6475 77.6323 65.6475 81.0014 70.613L98.5033 96.4072C102.356 102.085 98.3242 109.794 91.5018 109.794H56.4982C49.6758 109.794 45.644 102.085 49.4968 96.4072L66.9986 70.613Z" fill="#83C07B" />
+          <polygon
+            :points="i === 2 ? '20,2 35,30 5,30' : '20,5 33,28 7,28'"
+            :fill="i === 2 ? '#6abf69' : '#8fd18e'"
+          />
+          <polygon
+            :points="i === 2 ? '20,12 38,38 2,38' : '20,15 36,36 4,36'"
+            :fill="i === 2 ? '#4a9e49' : '#6abf69'"
+          />
+          <rect
+            x="17"
+            y="36"
+            width="6"
+            height="10"
+            fill="#8B7355"
+            rx="1"
+          />
         </svg>
       </div>
     </div>
@@ -306,6 +316,7 @@ function openEstimateDialog() {
     isolation: isolate;
     width: 180px;
     height: 180px;
+    transform: scale(1.4);
 
     @media (min-width: 1650px) {
       width: 220px;
@@ -336,21 +347,31 @@ function openEstimateDialog() {
 
   &-trees {
     position: absolute;
-    bottom: 10px;
-    right: -10px;
-    z-index: 2;
+    bottom: 25px;
+    right: 20%;
     display: flex;
     align-items: flex-end;
     gap: 2px;
-    pointer-events: none;
-    transform: scale(1.1);
-    transform-origin: right bottom;
+
+    @media (min-width: 1650px) {
+      right: 22%;
+      bottom: 35px;
+    }
   }
 
   &-tree {
-    &.big-tree {
-      margin-left: -6px;
-      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.08));
+    width: 28px;
+    height: 35px;
+    opacity: 0.9;
+
+    &.tree-1 {
+      transform: scale(0.7);
+    }
+    &.tree-2 {
+      transform: scale(1);
+    }
+    &.tree-3 {
+      transform: scale(0.85);
     }
   }
 
