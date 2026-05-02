@@ -336,10 +336,10 @@ onBeforeUnmount(() => {
               type="number"
               placeholder="在地圖畫屋頂或手動輸入"
             >
-            <span
-              class="info-icon"
-              title="在地圖上畫出屋頂範圍會自動計算面積，也可手動輸入"
-            >info</span>
+			<span class="info-icon">
+				info
+			  <span class="tooltip">輸入地址後按 Enter 或點搜尋，地圖會飛到該位置</span>
+			</span>
           </div>
         </div>
 
@@ -361,10 +361,10 @@ onBeforeUnmount(() => {
                 {{ t }}
               </option>
             </select>
-            <span
-              class="info-icon"
-              title="影響安裝效率與成本"
-            >info</span>
+			<span class="info-icon">
+				info
+			  <span class="tooltip">影響安裝效率與成本</span>
+			</span>
           </div>
         </div>
 
@@ -386,10 +386,10 @@ onBeforeUnmount(() => {
                 {{ d }}
               </option>
             </select>
-            <span
-              class="info-icon"
-              title="南向日照最佳"
-            >info</span>
+			<span class="info-icon">
+				info
+			  <span class="tooltip">南向日照最佳</span>
+			</span>
           </div>
         </div>
 
@@ -873,6 +873,37 @@ onBeforeUnmount(() => {
         background-color: rgba(255, 255, 255, 0.05);
       }
     }
+  }
+}
+
+.info-icon {
+  position: relative;
+  overflow: visible;
+  cursor: help;
+
+  .tooltip {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+	transition: opacity 0.2s ease 0.1s;
+    
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    z-index: 10;
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
   }
 }
 </style>
