@@ -38,19 +38,24 @@ window.addEventListener("storage", checkLocalResult);
 const checkInterval = setInterval(checkLocalResult, 2000);
 onBeforeUnmount(() => clearInterval(checkInterval));
 
+// const treeCount = computed(() => {
+//   // 優先用 localStorage 的評估結果
+//   if (localResult.value?.treeCount) {
+//     const count = localResult.value.treeCount;
+//     // 如果是 "30K" 格式，轉換成數字
+//     if (typeof count === "string" && count.includes("K")) {
+//       return parseInt(count) * 1000;
+//     }
+//     return parseInt(count) || 0;
+//   }
+//   // 否則用 API 資料
+//   if (!props.series?.data?.[0]?.data) return 0;
+//   return props.series.data[0].data[0]?.y || 0;
+// });
+
 const treeCount = computed(() => {
-  // 優先用 localStorage 的評估結果
-  if (localResult.value?.treeCount) {
-    const count = localResult.value.treeCount;
-    // 如果是 "30K" 格式，轉換成數字
-    if (typeof count === "string" && count.includes("K")) {
-      return parseInt(count) * 1000;
-    }
-    return parseInt(count) || 0;
-  }
-  // 否則用 API 資料
-  if (!props.series?.data?.[0]?.data) return 0;
-  return props.series.data[0].data[0]?.y || 0;
+  if (!props.series?.[0]?.data?.[0]) return 0;
+  return props.series[0].data[0].y || 0;
 });
 
 const carbonReduction = computed(() => {
