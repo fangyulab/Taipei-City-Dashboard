@@ -3,7 +3,7 @@
 <!-- 放到：src/dashboardComponent/components/CarbonTreeChart.vue -->
 
 <script setup>
-import { computed, ref, onBeforeUnmount } from "vue";
+import { computed } from "vue";
 import { useDialogStore } from "../../store/dialogStore";
 
 const props = defineProps([
@@ -16,87 +16,23 @@ const props = defineProps([
 
 const dialogStore = useDialogStore();
 
-const localResult = ref(null);
-
-function checkLocalResult() {
-  try {
-    if (typeof localStorage === "undefined") return;
-
-    const stored = localStorage.getItem("solarEstimateResult");
-    if (stored) {
-      localResult.value = JSON.parse(stored);
-    }
-  } catch (e) {
-    // ignore
-  }
-}
-
-checkLocalResult();
-
-if (typeof window !== "undefined") {
-  window.addEventListener("storage", checkLocalResult);
-}
-
-const checkInterval = setInterval(checkLocalResult, 2000);
-
-onBeforeUnmount(() => {
-  clearInterval(checkInterval);
-
-  if (typeof window !== "undefined") {
-    window.removeEventListener("storage", checkLocalResult);
-  }
-});
-
 const treeCount = computed(() => {
-  // 優先使用 localStorage 的即時試算結果
-  if (localResult.value?.treeCount) {
-    const count = localResult.value.treeCount;
-
-    if (typeof count === "string" && count.includes("K")) {
-      return parseInt(count) * 1000;
-    }
-
-    return parseInt(count) || 0;
-  }
-
-  // 接回原本後端資料：支援 props.series[0].data[0].y
   if (props.series?.[0]?.data?.[0]?.y !== undefined) {
     return props.series[0].data[0].y || 0;
   }
-
-  // 兼容另一種格式：props.series.data[0].data[0].y
-  if (props.series?.data?.[0]?.data?.[0]?.y !== undefined) {
-    return props.series.data[0].data[0].y || 0;
-  }
-
   return 0;
 });
 
 const carbonReduction = computed(() => {
-  // 優先使用 localStorage 的即時試算結果
-  if (localResult.value?.carbonReduction) {
-    return parseFloat(localResult.value.carbonReduction) || 0;
-  }
-
-  // 接回原本後端資料：取第二筆作為減碳量
   if (props.series?.[0]?.data?.[1]?.y !== undefined) {
     return props.series[0].data[1].y || 0;
   }
-
-  // 兼容另一種格式
-  if (props.series?.data?.[0]?.data?.[1]?.y !== undefined) {
-    return props.series.data[0].data[1].y || 0;
-  }
-
   return 0;
 });
 
 const formattedParkCount = computed(() => {
   const count = treeCount.value;
-
-  // 約 6000 棵樹 ≈ 1 座大安森林公園
   if (count >= 1000) return `${Math.round(count / 6000)}`;
-
   return count.toString();
 });
 
@@ -104,14 +40,122 @@ const progress = computed(() => {
   const target = 50000;
   const pct = Math.min((treeCount.value / target) * 100, 100);
   const circumference = 2 * Math.PI * 118;
-
   return circumference - (pct / 100) * circumference;
 });
 
 function openEstimateDialog() {
   dialogStore.showDialog("solarEstimate");
 }
-</script>
+
+// import { computed, ref, onBeforeUnmount } from "vue";
+// import { useDialogStore } from "../../store/dialogStore";
+
+// const props = defineProps([
+//   "chart_config",
+//   "activeChart",
+//   "series",
+//   "map_config",
+//   "map_filter",
+// ]);
+
+// const dialogStore = useDialogStore();
+
+// const localResult = ref(null);
+
+// function checkLocalResult() {
+//   try {
+//     if (typeof localStorage === "undefined") return;
+
+//     const stored = localStorage.getItem("solarEstimateResult");
+//     if (stored) {
+//       localResult.value = JSON.parse(stored);
+//     }
+//   } catch (e) {
+//     // ignore
+//   }
+// }
+
+// checkLocalResult();
+
+// if (typeof window !== "undefined") {
+//   window.addEventListener("storage", checkLocalResult);
+// }
+
+// const checkInterval = setInterval(checkLocalResult, 2000);
+
+// onBeforeUnmount(() => {
+//   clearInterval(checkInterval);
+
+//   if (typeof window !== "undefined") {
+//     window.removeEventListener("storage", checkLocalResult);
+//   }
+// });
+
+// const treeCount = computed(() => {
+//   // 優先使用 localStorage 的即時試算結果
+//   if (localResult.value?.treeCount) {
+//     const count = localResult.value.treeCount;
+
+//     if (typeof count === "string" && count.includes("K")) {
+//       return parseInt(count) * 1000;
+//     }
+
+//     return parseInt(count) || 0;
+//   }
+
+//   // 接回原本後端資料：支援 props.series[0].data[0].y
+//   if (props.series?.[0]?.data?.[0]?.y !== undefined) {
+//     return props.series[0].data[0].y || 0;
+//   }
+
+//   // 兼容另一種格式：props.series.data[0].data[0].y
+//   if (props.series?.data?.[0]?.data?.[0]?.y !== undefined) {
+//     return props.series.data[0].data[0].y || 0;
+//   }
+
+//   return 0;
+// });
+
+// const carbonReduction = computed(() => {
+//   // 優先使用 localStorage 的即時試算結果
+//   if (localResult.value?.carbonReduction) {
+//     return parseFloat(localResult.value.carbonReduction) || 0;
+//   }
+
+//   // 接回原本後端資料：取第二筆作為減碳量
+//   if (props.series?.[0]?.data?.[1]?.y !== undefined) {
+//     return props.series[0].data[1].y || 0;
+//   }
+
+//   // 兼容另一種格式
+//   if (props.series?.data?.[0]?.data?.[1]?.y !== undefined) {
+//     return props.series.data[0].data[1].y || 0;
+//   }
+
+//   return 0;
+// });
+
+// const formattedParkCount = computed(() => {
+//   const count = treeCount.value;
+
+//   // 約 6000 棵樹 ≈ 1 座大安森林公園
+//   if (count >= 1000) return `${Math.round(count / 6000)}`;
+
+//   return count.toString();
+// });
+
+// const progress = computed(() => {
+//   const target = 50000;
+//   const pct = Math.min((treeCount.value / target) * 100, 100);
+//   const circumference = 2 * Math.PI * 118;
+
+//   return circumference - (pct / 100) * circumference;
+// });
+
+// function openEstimateDialog() {
+//   dialogStore.showDialog("solarEstimate");
+// }
+// </script>
 
 <template>
   <div
