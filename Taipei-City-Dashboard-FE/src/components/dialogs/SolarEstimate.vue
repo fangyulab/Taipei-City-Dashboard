@@ -1,14 +1,8 @@
-<!-- SolarEstimate.vue -->
-<!-- 自定義彈跳視窗：太陽能評估表單 + 地圖畫屋頂 + 結果頁 -->
-<!-- 放到：src/components/dialogs/SolarEstimate.vue -->
 <script setup>
 import { ref, computed, onBeforeUnmount, nextTick, watch } from "vue";
 import { useDialogStore } from "../../store/dialogStore";
 import DialogContainer from "./DialogContainer.vue";
 import mapboxgl from "mapbox-gl";
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
-import area from "@turf/area";
 
 const dialogStore = useDialogStore();
 
@@ -24,13 +18,130 @@ const apiError = ref(false);
 // 地圖
 const mapContainer = ref(null);
 let map = null;
-let draw = null;
+
+// 自製繪圖狀態
+let drawPoints = [];
+let isDrawing = ref(false);
+let markers = [];
 
 // 屋頂類型選項
 const roofTypes = ["平屋頂", "斜屋頂", "金屬浪板", "其他"];
 const directions = ["南向", "東南向", "西南向", "東向", "西向", "北向"];
 
-// 監聽 dialog 開關，開啟時初始化地圖
+// ========== 自製面積計算（取代 @turf/area）==========
+function calculatePolygonArea(coords) {
+  // Shoelace formula on spherical coordinates
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const R = 6371000;
+  let area = 0;
+  const n = coords.length;
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    area +=
+      toRad(coords[j][0] - coords[i][0]) *
+      (2 + Math.sin(toRad(coords[i][1])) + Math.sin(toRad(coords[j][1])));
+  }
+  return Math.abs((area * R * R) / 2);
+}
+
+// ========== 自製多邊形繪製（取代 @mapbox/mapbox-gl-draw）==========
+function updateDrawLayers() {
+  if (!map) return;
+
+  // 更新點 source
+  const pointFeatures = drawPoints.map((p) => ({
+    type: "Feature",
+    geometry: { type: "Point", coordinates: p },
+  }));
+
+  if (map.getSource("draw-points")) {
+    map.getSource("draw-points").setData({
+      type: "FeatureCollection",
+      features: pointFeatures,
+    });
+  }
+
+  // 更新線/面 source
+  if (drawPoints.length >= 2) {
+    const lineCoords = [...drawPoints];
+    if (drawPoints.length >= 3) {
+      lineCoords.push(drawPoints[0]); // 閉合
+    }
+
+    const feature =
+      drawPoints.length >= 3
+        ? {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [lineCoords],
+            },
+          }
+        : {
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: lineCoords,
+            },
+          };
+
+    if (map.getSource("draw-polygon")) {
+      map.getSource("draw-polygon").setData({
+        type: "FeatureCollection",
+        features: [feature],
+      });
+    }
+  } else {
+    if (map.getSource("draw-polygon")) {
+      map.getSource("draw-polygon").setData({
+        type: "FeatureCollection",
+        features: [],
+      });
+    }
+  }
+}
+
+function handleMapClick(e) {
+  if (!isDrawing.value) return;
+
+  const coord = [e.lngLat.lng, e.lngLat.lat];
+  drawPoints.push(coord);
+  updateDrawLayers();
+
+  // 3 個點以上就算面積
+  if (drawPoints.length >= 3) {
+    const sqMeters = calculatePolygonArea(drawPoints);
+    const ping = sqMeters / 3.30579;
+    areaValue.value = Math.round(ping * 10) / 10;
+  }
+}
+
+function startDrawing() {
+  clearDrawing();
+  isDrawing.value = true;
+  if (map) {
+    map.getCanvas().style.cursor = "crosshair";
+  }
+}
+
+function finishDrawing() {
+  isDrawing.value = false;
+  if (map) {
+    map.getCanvas().style.cursor = "";
+  }
+}
+
+function clearDrawing() {
+  drawPoints = [];
+  areaValue.value = "";
+  isDrawing.value = false;
+  updateDrawLayers();
+  if (map) {
+    map.getCanvas().style.cursor = "";
+  }
+}
+
+// 監聽 dialog 開關
 watch(
   () => dialogStore.dialogs.solarEstimate,
   async (isOpen) => {
@@ -51,105 +162,76 @@ function initMap() {
   map = new mapboxgl.Map({
     container: mapContainer.value,
     style: "mapbox://styles/mapbox/satellite-v9",
-    center: [121.5654, 25.0330], // 台北市中心
+    center: [121.5654, 25.033],
     zoom: 17,
   });
 
-  draw = new MapboxDraw({
-    displayControlsDefault: false,
-    controls: {
-      polygon: true,
-      trash: true,
-    },
-    defaultMode: "draw_polygon",
-    styles: [
-      // 多邊形填色
-      {
-        id: "gl-draw-polygon-fill",
-        type: "fill",
-        filter: ["all", ["==", "$type", "Polygon"]],
-        paint: {
-          "fill-color": "#ff9800",
-          "fill-opacity": 0.3,
-        },
-      },
-      // 多邊形邊框
-      {
-        id: "gl-draw-polygon-stroke",
-        type: "line",
-        filter: ["all", ["==", "$type", "Polygon"]],
-        paint: {
-          "line-color": "#ff9800",
-          "line-width": 2,
-        },
-      },
-      // 頂點
-      {
-        id: "gl-draw-point",
-        type: "circle",
-        filter: ["all", ["==", "$type", "Point"], ["==", "meta", "vertex"]],
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#ff9800",
-        },
-      },
-      // 中間點
-      {
-        id: "gl-draw-point-mid",
-        type: "circle",
-        filter: ["all", ["==", "$type", "Point"], ["==", "meta", "midpoint"]],
-        paint: {
-          "circle-radius": 3,
-          "circle-color": "#ff9800",
-        },
-      },
-    ],
-  });
-
-  map.addControl(draw);
   map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-  // 畫完多邊形時計算面積
-  map.on("draw.create", updateArea);
-  map.on("draw.update", updateArea);
-  map.on("draw.delete", () => {
-    areaValue.value = "";
+  map.on("load", () => {
+    // 多邊形/線 source + layer
+    map.addSource("draw-polygon", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] },
+    });
+
+    map.addLayer({
+      id: "draw-polygon-fill",
+      type: "fill",
+      source: "draw-polygon",
+      paint: {
+        "fill-color": "#ff9800",
+        "fill-opacity": 0.3,
+      },
+      filter: ["==", "$type", "Polygon"],
+    });
+
+    map.addLayer({
+      id: "draw-polygon-line",
+      type: "line",
+      source: "draw-polygon",
+      paint: {
+        "line-color": "#ff9800",
+        "line-width": 2,
+      },
+    });
+
+    // 點 source + layer
+    map.addSource("draw-points", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] },
+    });
+
+    map.addLayer({
+      id: "draw-points-circle",
+      type: "circle",
+      source: "draw-points",
+      paint: {
+        "circle-radius": 5,
+        "circle-color": "#ff9800",
+        "circle-stroke-color": "#fff",
+        "circle-stroke-width": 1,
+      },
+    });
+
+    // 點擊事件
+    map.on("click", handleMapClick);
   });
-}
-
-function updateArea() {
-  const data = draw.getAll();
-  if (data.features.length > 0) {
-    // 只取最後一個多邊形
-    const lastFeature = data.features[data.features.length - 1];
-    // 計算面積（平方公尺）
-    const sqMeters = area(lastFeature);
-    // 轉換為坪（1坪 = 3.30579 平方公尺）
-    const ping = sqMeters / 3.30579;
-    areaValue.value = Math.round(ping * 10) / 10;
-
-    // 刪除之前的多邊形，只保留最新的
-    if (data.features.length > 1) {
-      const idsToRemove = data.features
-        .slice(0, -1)
-        .map((f) => f.id);
-      idsToRemove.forEach((id) => draw.delete(id));
-    }
-  }
 }
 
 function destroyMap() {
   if (map) {
+    map.off("click", handleMapClick);
     map.remove();
     map = null;
-    draw = null;
   }
+  drawPoints = [];
+  isDrawing.value = false;
 }
 
-// 搜尋地址並飛到該位置
+// 搜尋地址
 function searchAddress() {
   if (!address.value || !map) return;
-
   const query = encodeURIComponent(address.value);
   fetch(
     `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${mapboxgl.accessToken}&country=tw&limit=1`
@@ -201,7 +283,7 @@ const treeEquivalent = computed(() => {
   return trees.toString();
 });
 
-// API 結果（從後端或預設）
+// API 結果
 const resultData = ref(null);
 
 async function handleEstimate() {
@@ -211,26 +293,20 @@ async function handleEstimate() {
 
   const payload = {
     address: address.value,
-    area: parseFloat(areaValue.value) * 3.30579,  // 坪轉平方公尺
+    area: parseFloat(areaValue.value) * 3.30579,
     roof_type: roofType.value,
     roof_dir: roofDirection.value,
   };
 
   try {
-    // 嘗試呼叫後端 API
-    const response = await fetch(
-      "/api/dev/solar/estimate",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
-
+    const response = await fetch("/api/dev/solar/estimate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
     if (!response.ok) throw new Error("API failed");
     resultData.value = await response.json();
   } catch (err) {
-    // API 失敗，使用前端預設計算
     apiError.value = true;
     resultData.value = {
       estimated_capacity_kw: estimatedCapacity.value,
@@ -259,7 +335,6 @@ function handleClose() {
 
 function handleBack() {
   showResult.value = false;
-  // 重新初始化地圖
   destroyMap();
   nextTick(() => {
     setTimeout(() => initMap(), 100);
@@ -267,16 +342,8 @@ function handleBack() {
 }
 
 function handleConfirm() {
-  // 透過 event 通知外部更新樹數量
-  const trees = resultData.value?.tree_equivalent || treeEquivalent.value;
-  // 存到 localStorage 讓 CarbonTreeChart 讀取
-  localStorage.setItem("solarEstimateResult", JSON.stringify({
-    treeCount: trees,
-    carbonReduction: resultData.value?.carbon_reduction_tons || carbonReduction.value,
-    timestamp: Date.now(),
-  }));
   handleClose();
-  dialogStore.showNotification("success", `評估完成！預計等效種植 ${trees} 棵樹`);
+  dialogStore.showNotification("success", "評估完成！");
 }
 
 onBeforeUnmount(() => {
@@ -290,7 +357,6 @@ onBeforeUnmount(() => {
     @on-close="handleClose"
   >
     <div class="solarestimate">
-      <!-- 關閉按鈕 -->
       <button
         class="solarestimate-close"
         @click="handleClose"
@@ -321,10 +387,10 @@ onBeforeUnmount(() => {
             >
               <span>search</span>
             </button>
-            <span
-              class="info-icon"
-              title="輸入地址後按 Enter 或點搜尋，地圖會飛到該位置"
-            >info</span>
+            <span class="info-icon">
+              info
+              <span class="tooltip">輸入地址後按 Enter 或點搜尋，地圖會飛到該位置</span>
+            </span>
           </div>
         </div>
 
@@ -336,10 +402,10 @@ onBeforeUnmount(() => {
               type="number"
               placeholder="在地圖畫屋頂或手動輸入"
             >
-			<span class="info-icon">
-				info
-			  <span class="tooltip">輸入地址後按 Enter 或點搜尋，地圖會飛到該位置</span>
-			</span>
+            <span class="info-icon">
+              info
+              <span class="tooltip">點「畫屋頂」後在地圖上逐點點擊標出範圍，自動計算面積</span>
+            </span>
           </div>
         </div>
 
@@ -347,24 +413,13 @@ onBeforeUnmount(() => {
           <label>屋頂類型</label>
           <div class="solarestimate-input-wrap">
             <select v-model="roofType">
-              <option
-                value=""
-                disabled
-              >
-                選擇屋頂類型
-              </option>
-              <option
-                v-for="t in roofTypes"
-                :key="t"
-                :value="t"
-              >
-                {{ t }}
-              </option>
+              <option value="" disabled>選擇屋頂類型</option>
+              <option v-for="t in roofTypes" :key="t" :value="t">{{ t }}</option>
             </select>
-			<span class="info-icon">
-				info
-			  <span class="tooltip">影響安裝效率與成本</span>
-			</span>
+            <span class="info-icon">
+              info
+              <span class="tooltip">影響安裝效率與成本</span>
+            </span>
           </div>
         </div>
 
@@ -372,35 +427,37 @@ onBeforeUnmount(() => {
           <label>屋頂朝向</label>
           <div class="solarestimate-input-wrap">
             <select v-model="roofDirection">
-              <option
-                value=""
-                disabled
-              >
-                選擇朝向
-              </option>
-              <option
-                v-for="d in directions"
-                :key="d"
-                :value="d"
-              >
-                {{ d }}
-              </option>
+              <option value="" disabled>選擇朝向</option>
+              <option v-for="d in directions" :key="d" :value="d">{{ d }}</option>
             </select>
-			<span class="info-icon">
-				info
-			  <span class="tooltip">南向日照最佳</span>
-			</span>
+            <span class="info-icon">
+              info
+              <span class="tooltip">南向日照最佳</span>
+            </span>
           </div>
         </div>
 
         <!-- 地圖區域 -->
         <div class="solarestimate-map-container">
+          <div class="solarestimate-map-toolbar">
+            <button
+              :class="{ active: isDrawing }"
+              @click="isDrawing ? finishDrawing() : startDrawing()"
+            >
+              <span>{{ isDrawing ? 'check' : 'edit' }}</span>
+              {{ isDrawing ? '完成' : '畫屋頂' }}
+            </button>
+            <button @click="clearDrawing">
+              <span>delete</span>
+              清除
+            </button>
+          </div>
           <div
             ref="mapContainer"
             class="solarestimate-map"
           />
           <p class="solarestimate-map-hint">
-            在衛星圖上畫出屋頂範圍，自動計算面積
+            {{ isDrawing ? '在地圖上逐點點擊標出屋頂範圍，3 點以上自動計算面積' : '點擊「畫屋頂」開始繪製範圍' }}
           </p>
         </div>
 
@@ -429,9 +486,7 @@ onBeforeUnmount(() => {
         <h3>預期一年節碳</h3>
         <p class="solarestimate-result-main">
           相當於種了
-          <strong>{{
-            resultData?.tree_equivalent || treeEquivalent
-          }}</strong>
+          <strong>{{ resultData?.tree_equivalent || treeEquivalent }}</strong>
           棵樹
         </p>
 
@@ -443,90 +498,40 @@ onBeforeUnmount(() => {
             class="solarestimate-result-tree"
           >
             <polygon
-              :points="
-                i % 2 === 0 ? '20,2 35,30 5,30' : '20,5 33,28 7,28'
-              "
+              :points="i % 2 === 0 ? '20,2 35,30 5,30' : '20,5 33,28 7,28'"
               :fill="i % 2 === 0 ? '#6abf69' : '#8fd18e'"
             />
             <polygon
-              :points="
-                i % 2 === 0 ? '20,12 38,38 2,38' : '20,15 36,36 4,36'
-              "
+              :points="i % 2 === 0 ? '20,12 38,38 2,38' : '20,15 36,36 4,36'"
               :fill="i % 2 === 0 ? '#4a9e49' : '#6abf69'"
             />
-            <rect
-              x="17"
-              y="36"
-              width="6"
-              height="10"
-              fill="#8B7355"
-              rx="1"
-            />
+            <rect x="17" y="36" width="6" height="10" fill="#8B7355" rx="1" />
           </svg>
         </div>
 
-        <div
-          v-if="apiError"
-          class="solarestimate-result-warning"
-        >
+        <div v-if="apiError" class="solarestimate-result-warning">
           <span>info</span>
           <p>無法連線至評估伺服器，以下為前端預估值</p>
         </div>
 
-        <!-- <div class="solarestimate-result-details">
+        <div class="solarestimate-result-details">
           <div class="solarestimate-result-item">
             <span class="label">預估裝置容量</span>
-            <span class="value">{{
-              resultData?.estimated_capacity_kw || estimatedCapacity
-            }}
-              kW</span>
+            <span class="value">{{ Math.round((resultData?.capacity_kw || resultData?.estimated_capacity_kw || estimatedCapacity) * 10) / 10 }} kW</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">年發電量</span>
-            <span class="value">{{
-              (
-                resultData?.annual_generation_kwh || annualGeneration
-              ).toLocaleString()
-            }}
-              度</span>
+            <span class="value">{{ Math.round(resultData?.annual_generation_kwh || annualGeneration).toLocaleString() }} 度</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">年減碳量</span>
-            <span class="value">{{
-              resultData?.carbon_reduction_tons || carbonReduction
-            }}
-              公噸</span>
-          </div>
-          <div class="solarestimate-result-item">
-            <span class="label">屋頂面積</span>
-            <span class="value">{{ areaValue }} 坪</span>
-          </div>
-        </div> -->
-      <!-- </div> -->
-<div class="solarestimate-result-details">
-          <div class="solarestimate-result-item">
-            <span class="label">預估裝置容量</span>
-            <span class="value">{{
-              Math.round((resultData?.capacity_kw || resultData?.estimated_capacity_kw || estimatedCapacity) * 10) / 10
-            }} kW</span>
-          </div>
-          <div class="solarestimate-result-item">
-            <span class="label">年發電量</span>
-            <span class="value">{{
-              Math.round(resultData?.annual_generation_kwh || annualGeneration).toLocaleString()
-            }} 度</span>
-          </div>
-          <div class="solarestimate-result-item">
-            <span class="label">年減碳量</span>
-            <span class="value">{{
-              Math.round((resultData?.carbon_reduction_ton || resultData?.carbon_reduction_tons || carbonReduction) * 100) / 100
-            }} 公噸</span>
+            <span class="value">{{ Math.round((resultData?.carbon_reduction_ton || resultData?.carbon_reduction_tons || carbonReduction) * 100) / 100 }} 公噸</span>
           </div>
           <div class="solarestimate-result-item">
             <span class="label">屋頂面積</span>
             <span class="value">{{ Math.round(areaValue * 10) / 10 }} 坪</span>
           </div>
-		  </div>
+        </div>
 
         <div class="solarestimate-result-actions">
           <button
@@ -535,8 +540,8 @@ onBeforeUnmount(() => {
           >
             確認
           </button>
-          
-          <a href="https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/00d92110-3049-44ee-9382-6988a4b2436d"
+          <a
+            href="https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/00d92110-3049-44ee-9382-6988a4b2436d"
             target="_blank"
             rel="noopener noreferrer"
             class="solarestimate-learnmore"
@@ -632,14 +637,6 @@ onBeforeUnmount(() => {
       cursor: pointer;
     }
 
-    .info-icon {
-      font-family: var(--font-icon);
-      font-size: 1rem;
-      color: var(--color-complement-text);
-      cursor: help;
-      flex-shrink: 0;
-    }
-
     .search-btn {
       padding: 6px;
       border: 1px solid var(--color-border);
@@ -665,24 +662,48 @@ onBeforeUnmount(() => {
     margin: 0.8rem 0;
   }
 
+  &-map-toolbar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: var(--color-complement-text);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      span {
+        font-family: var(--font-icon);
+        font-size: 0.9rem;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: var(--color-normal-text);
+      }
+
+      &.active {
+        background-color: #ff9800;
+        color: #222;
+        border-color: #ff9800;
+      }
+    }
+  }
+
   &-map {
     width: 100%;
     height: 280px;
     border-radius: 5px;
     border: 1px solid var(--color-border);
     overflow: hidden !important;
-
-    :deep(.mapbox-gl-draw_ctrl-draw-btn) {
-      background-color: rgba(50, 50, 50, 0.9) !important;
-      border: 1px solid #666 !important;
-      filter: invert(1);
-      width: 30px;
-      height: 30px;
-
-      &:hover {
-        background-color: rgba(80, 80, 80, 0.9) !important;
-      }
-    }
 
     :deep(.mapboxgl-ctrl-group) {
       background: rgba(40, 42, 44, 0.95);
@@ -698,10 +719,6 @@ onBeforeUnmount(() => {
           background-color: rgba(255, 255, 255, 0.15);
         }
       }
-    }
-
-    :deep(.mapboxgl-ctrl-group:not(:empty)) {
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
     }
   }
 
@@ -827,7 +844,7 @@ onBeforeUnmount(() => {
       }
     }
 
-&-actions {
+    &-actions {
       display: flex;
       gap: 10px;
       margin-top: 1.2rem;
@@ -880,25 +897,26 @@ onBeforeUnmount(() => {
   position: relative;
   overflow: visible;
   cursor: help;
+  font-family: var(--font-icon);
+  font-size: 1rem;
+  color: var(--color-complement-text);
+  flex-shrink: 0;
 
   .tooltip {
     position: absolute;
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-	transition: opacity 0.2s ease 0.1s;
-    
     background: #333;
     color: #fff;
     padding: 6px 10px;
     border-radius: 4px;
     font-size: 0.75rem;
+    font-family: inherit;
     white-space: nowrap;
-
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
-
     z-index: 10;
   }
 
