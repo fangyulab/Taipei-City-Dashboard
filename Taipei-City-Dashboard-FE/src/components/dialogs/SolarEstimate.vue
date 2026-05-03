@@ -28,7 +28,6 @@ let markers = [];
 const roofTypes = ["平屋頂", "斜屋頂", "金屬浪板", "其他"];
 const directions = ["南向", "東南向", "西南向", "東向", "西向", "北向"];
 
-// ========== 自製面積計算（取代 @turf/area）==========
 function calculatePolygonArea(coords) {
   // Shoelace formula on spherical coordinates
   const toRad = (deg) => (deg * Math.PI) / 180;
@@ -44,7 +43,6 @@ function calculatePolygonArea(coords) {
   return Math.abs((area * R * R) / 2);
 }
 
-// ========== 自製多邊形繪製（取代 @mapbox/mapbox-gl-draw）==========
 function updateDrawLayers() {
   if (!map) return;
 
